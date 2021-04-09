@@ -67,6 +67,7 @@ int en_r1 (uint *r, float p, int lenr, int *n, int on_off)
 	}
 
     /************ encoding sep ************/
+	int updateFlag = 0;
 
     gol1 = Golomb0 (sep1.sep, sep1.lensepbit); ///lenrs是gol1.lenr，rs是 gol1.r, ps是gol1.p
     bin[ptr >> 3] |= gol1.lastBit << (7 - x);
@@ -75,6 +76,12 @@ int en_r1 (uint *r, float p, int lenr, int *n, int on_off)
     encode_stationary_source_bin (&gol1.lenr, 1, 20, 0, 0, 0, 0, 0); ///biny=[biny bin_lenrs]
     essc1 = encode_stationary_source_cbook (gol1.p);
 
+	if (essc1.codebook > 4)
+	{
+		essc1.codebook = 4;
+		updateFlag = 1;
+		printf("出现了pudate case in en_r1函数里面");
+	}
 
     sfc1 = SFcode ((essc1.codebook + 1), 5);
     x = ptr & 7;
@@ -83,8 +90,15 @@ int en_r1 (uint *r, float p, int lenr, int *n, int on_off)
     bin[ptr >> 3] |= rem.b[1];
     bin[(ptr >> 3) + 1] |= rem.b[0];
     ptr += sfc1.lb; x += sfc1.lb; x &= 7;
-    encode_stationary_source_bin (gol1.r, gol1.lenr, gol1.p, essc1.k, essc1.m, essc1.m1, essc1.m2, essc1.cls); ///biny=[biny rs]
-
+    //encode_stationary_source_bin (gol1.r, gol1.lenr, gol1.p, essc1.k, essc1.m, essc1.m1, essc1.m2, essc1.cls); ///biny=[biny rs]
+	if (updateFlag)
+	{
+		encode_stationary_source_bin(gol1.r, gol1.lenr , 4, 0, 0, 0, 0, 0);
+	}
+	else
+	{
+		encode_stationary_source_bin(gol1.r, gol1.lenr, gol1.p, essc1.k, essc1.m, essc1.m1, essc1.m2, essc1.cls); ///biny=[biny rs]
+	}
     /************ encoding rk and rw ************/
 
     en_runs_sep_sub (thd, r, nk, sep1.rw, sep1.lrk, sep1.lrw);
