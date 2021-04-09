@@ -14,7 +14,7 @@ DEC de_KsideSub (uchar *bin, int len)
    DEC dec1;
    GOLINV golinv1;
 
-   DeKsideSub.z = calloc((len), sizeof(int));
+   DeKsideSub.z = calloc((len), sizeof(int)); //分支会内存泄露 最后优化得改
 
    t = ptr & 7;
    t0 = (bin[ptr >> 3] >> (7 - t)) & 1;    //取bin中的某一位(cbook的高位)
@@ -106,15 +106,32 @@ DEC de_KsideSub (uchar *bin, int len)
             }
             else
             {
-               //printf("de_KsideSub 7:\n");
-               t = ptr & 7;
-               lastBit = (bin[ptr >> 3] >> (7 - t)) & 1;
-               ptr++;
+				t = ptr & 7;
+				bn = (bin[ptr >> 3] >> (7 - t)) & 1;
+				ptr++;
 
-               dec1 = decode_stationary_source_sumr(bin, 3, len);
-               golinv1 = GolombInv(dec1.r, lastBit, dec1.lenr);
-               DeKsideSub.z = golinv1.z;
-               DeKsideSub.lenzbit = golinv1.lenzbit;
+				if (!bn)
+				{
+					DeKsideSub.lenzbit = len;
+					int tepIndex = (len / 8) + 1;
+					for (int i = 0; i < tepIndex; i++)
+					{
+						DeKsideSub.z[i] = 255;
+					}
+				}
+				else
+				{
+					//printf("de_KsideSub 7:\n");
+					t = ptr & 7;
+					lastBit = (bin[ptr >> 3] >> (7 - t)) & 1;
+					ptr++;
+
+					dec1 = decode_stationary_source_sumr(bin, 3, len);
+					golinv1 = GolombInv(dec1.r, lastBit, dec1.lenr);
+					DeKsideSub.z = golinv1.z;
+					DeKsideSub.lenzbit = golinv1.lenzbit;
+				}
+
             }
          }
       }

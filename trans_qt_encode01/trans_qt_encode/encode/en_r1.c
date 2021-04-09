@@ -74,6 +74,8 @@ int en_r1 (uint *r, float p, int lenr, int *n, int on_off)
 
     encode_stationary_source_bin (&gol1.lenr, 1, 20, 0, 0, 0, 0, 0); ///biny=[biny bin_lenrs]
     essc1 = encode_stationary_source_cbook (gol1.p);
+
+
     sfc1 = SFcode ((essc1.codebook + 1), 5);
     x = ptr & 7;
     rem.a = sfc1.code; ///biny=[biny codebook]
