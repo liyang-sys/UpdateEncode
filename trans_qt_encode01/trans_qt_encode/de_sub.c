@@ -116,7 +116,7 @@ void de_subDC_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 	scan_inv(a, 0, 0, lg, m[27], 2, 0, 1, qcf0);	//反向扫描
 
@@ -130,7 +130,7 @@ void de_subDC_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 	scan_inv(a, 0, 2, lg, m[28], 2, 0, 1, qcf0);	//反向扫描
 
@@ -144,7 +144,7 @@ void de_subDC_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 	scan_inv(a, 2, 0, lg, m[29], 2, 0, 1, qcf0);	//反向扫描
 
@@ -158,7 +158,7 @@ void de_subDC_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 	scan_inv(a, 2, 2, lg, m[30], 2, 0, 1, qcf0);	//反向扫描
 
@@ -173,7 +173,7 @@ void de_subDC_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 1, lg, m[31], 1, 0, 1, qcf0);	//反向扫描
@@ -187,7 +187,7 @@ void de_subDC_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 1, 1, lg, m[33], 1, 0, 1, qcf0);	//反向扫描
@@ -201,7 +201,7 @@ void de_subDC_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 1, 0, lg, m[32], 1, 0, 1, qcf0);	//反向扫描
@@ -233,7 +233,7 @@ void de_sub7_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 1, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -247,7 +247,7 @@ void de_sub7_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 2, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -261,7 +261,7 @@ void de_sub7_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 3, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -275,7 +275,7 @@ void de_sub7_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 4, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -289,7 +289,7 @@ void de_sub7_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 5, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -303,7 +303,7 @@ void de_sub7_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 6, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -317,7 +317,7 @@ void de_sub7_noharr(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 7, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -348,7 +348,7 @@ void de_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta, int len
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, 0, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -362,7 +362,7 @@ void de_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta, int len
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, 1, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -376,7 +376,7 @@ void de_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta, int len
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, 2, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -390,7 +390,7 @@ void de_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta, int len
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, 3, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -404,7 +404,7 @@ void de_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta, int len
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, 4, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -418,7 +418,7 @@ void de_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta, int len
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, 5, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -432,7 +432,7 @@ void de_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta, int len
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, 6, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -446,7 +446,7 @@ void de_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta, int len
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, 7, lg, m[37], 3, 0, 0, qcf0);	//反向扫描
@@ -480,7 +480,7 @@ void de_coef3d_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 0, lg, m[20], 2, 1, 1, qcf0);	//反向扫描
@@ -495,7 +495,7 @@ void de_coef3d_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 2, lg, m[21], 2, 1, 1, qcf0);	//反向扫描
@@ -510,7 +510,7 @@ void de_coef3d_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 2, 0, lg, m[22], 2, 1, 1, qcf0);	//反向扫描
@@ -525,7 +525,7 @@ void de_coef3d_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 2, 2, lg, m[23], 2, 1, 1, qcf0);	//反向扫描
@@ -540,7 +540,7 @@ void de_coef3d_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 1, lg, m[24], 1, 1, 1, qcf0);	//反向扫描
@@ -554,7 +554,7 @@ void de_coef3d_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 1, 1, lg, m[26], 1, 1, 1, qcf0);	//反向扫描
@@ -568,7 +568,7 @@ void de_coef3d_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 1, 0, lg, m[25], 1, 1, 1, qcf0);	//反向扫描
@@ -599,7 +599,7 @@ void de_coed3d_7(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 1, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -613,7 +613,7 @@ void de_coed3d_7(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 2, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -627,7 +627,7 @@ void de_coed3d_7(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 3, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -641,7 +641,7 @@ void de_coed3d_7(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 4, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -655,7 +655,7 @@ void de_coed3d_7(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 5, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -669,7 +669,7 @@ void de_coed3d_7(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 6, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -683,7 +683,7 @@ void de_coed3d_7(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, 0, 7, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -714,7 +714,7 @@ void de_coed3d_8(int a, int b, int *w, int *h, int **m, double delta, int lenbit
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, b, 0, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -728,7 +728,7 @@ void de_coed3d_8(int a, int b, int *w, int *h, int **m, double delta, int lenbit
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, b, 1, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -742,7 +742,7 @@ void de_coed3d_8(int a, int b, int *w, int *h, int **m, double delta, int lenbit
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, b, 2, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -756,7 +756,7 @@ void de_coed3d_8(int a, int b, int *w, int *h, int **m, double delta, int lenbit
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, b, 3, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -770,7 +770,7 @@ void de_coed3d_8(int a, int b, int *w, int *h, int **m, double delta, int lenbit
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, b, 4, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -784,7 +784,7 @@ void de_coed3d_8(int a, int b, int *w, int *h, int **m, double delta, int lenbit
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, b, 5, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -798,7 +798,7 @@ void de_coed3d_8(int a, int b, int *w, int *h, int **m, double delta, int lenbit
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, b, 6, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -812,7 +812,7 @@ void de_coed3d_8(int a, int b, int *w, int *h, int **m, double delta, int lenbit
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 4, b, 7, lg, m[36], 3, 1, 0, qcf0);	//反向扫描
@@ -844,7 +844,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 0, 0, lg, m[10], 3, 2, 1, qcf0);	//反向扫描
@@ -859,7 +859,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 0, 4, lg, m[11], 3, 2, 1, qcf0);	//反向扫描
@@ -873,7 +873,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 4, 4, lg, m[13], 3, 2, 1, qcf0);	//反向扫描
@@ -887,7 +887,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 4, 0, lg, m[12], 3, 2, 1, qcf0);	//反向扫描
@@ -902,7 +902,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 0, 2, lg, m[14], 2, 2, 1, qcf0);	//反向扫描
@@ -916,7 +916,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 2, 2, lg, m[16], 2, 2, 1, qcf0);	//反向扫描
@@ -930,7 +930,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 2, 0, lg, m[15], 2, 2, 1, qcf0);	//反向扫描
@@ -945,7 +945,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 0, 1, lg, m[17], 1, 2, 1, qcf0);	//反向扫描
@@ -959,7 +959,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 1, 1, lg, m[19], 1, 2, 1, qcf0);	//反向扫描
@@ -973,7 +973,7 @@ void de_coef3dB_dc(int a, int *w, int *h, int **m, double delta, int lenbits)
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, 1, 0, lg, m[18], 1, 2, 1, qcf0);	//反向扫描
@@ -1005,7 +1005,7 @@ void de_coef3dB_L3(int H, int W, int a, int b, int c, int *w, int *h, int **m, d
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, b, c, lg, m[35], 3, 2, 0, qcf0);	//反向扫描
@@ -1018,7 +1018,7 @@ void de_coef3dB_L3(int H, int W, int a, int b, int c, int *w, int *h, int **m, d
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, b+1, c, lg, m[35], 3, 2, 0, qcf0);	//反向扫描
@@ -1031,7 +1031,7 @@ void de_coef3dB_L3(int H, int W, int a, int b, int c, int *w, int *h, int **m, d
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a + 8, b+1, c-1, lg, m[35], 3, 2, 0, qcf0);	//反向扫描
@@ -1063,7 +1063,7 @@ void de_coef3dB_L2_3(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a + 8, b, c, lg, m[38], 2, qcf0);
@@ -1076,7 +1076,7 @@ void de_coef3dB_L2_3(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a + 8, b, c+2, lg, m[38], 2, qcf0);	//反向扫描
@@ -1089,7 +1089,7 @@ void de_coef3dB_L2_3(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a + 8, b, c+4, lg, m[38], 2, qcf0);	//反向扫描
@@ -1120,7 +1120,7 @@ void de_coef3dB_L2_4(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a + 8, b, c, lg, m[38], 2, qcf0);
@@ -1133,7 +1133,7 @@ void de_coef3dB_L2_4(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a + 8, b, c + 2, lg, m[38], 2, qcf0);	//反向扫描
@@ -1146,7 +1146,7 @@ void de_coef3dB_L2_4(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a + 8, b, c + 4, lg, m[38], 2, qcf0);	//反向扫描
@@ -1159,7 +1159,7 @@ void de_coef3dB_L2_4(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a + 8, b, c + 6, lg, m[38], 2, qcf0);	//反向扫描
@@ -1198,7 +1198,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 		}
 		else{
 			qcf0 = (float*)calloc(lg, sizeof(float));
-			printf("子带全为零\n");
+			//printf("子带全为零\n");
 		}
 
 		scan_inv(a, 0, 0, lg, m[0], 3, 3, 1, qcf0);	//反向扫描
@@ -1214,7 +1214,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 4, lg, m[1], 3, 3, 1, qcf0);	//反向扫描
@@ -1229,7 +1229,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 4, 4, lg, m[3], 3, 3, 1, qcf0);	//反向扫描
@@ -1244,7 +1244,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 4, 0, lg, m[2], 3, 3, 1, qcf0);	//反向扫描
@@ -1259,7 +1259,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 2, lg, m[4], 2, 3, 1, qcf0);	//反向扫描
@@ -1273,7 +1273,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 2, 2, lg, m[6], 2, 3, 1, qcf0);	//反向扫描
@@ -1287,7 +1287,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 2, 0, lg, m[5], 2, 3, 1, qcf0);	//反向扫描
@@ -1302,7 +1302,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 0, 1, lg, m[7], 1, 3, 1, qcf0);	//反向扫描
@@ -1316,7 +1316,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 1, 1, lg, m[9], 1, 3, 1, qcf0);	//反向扫描
@@ -1330,7 +1330,7 @@ void de_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC, int
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, 1, 0, lg, m[8], 1, 3, 1, qcf0);	//反向扫描
@@ -1365,7 +1365,7 @@ void de_coef3d_dc5B_L3(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b, c, lg, m[34], 3, 3, 0, qcf0);	//反向扫描
@@ -1378,7 +1378,7 @@ void de_coef3d_dc5B_L3(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b+1, c, lg, m[34], 3, 3, 0, qcf0);	//反向扫描
@@ -1391,7 +1391,7 @@ void de_coef3d_dc5B_L3(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv(a, b+1, c-1, lg, m[34], 3, 3, 0, qcf0);	//反向扫描
@@ -1424,7 +1424,7 @@ void de_coef3d_dc5B_L2(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a, b, c, lg, m[39], 3, qcf0);
@@ -1437,7 +1437,7 @@ void de_coef3d_dc5B_L2(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a, b+2, c, lg, m[39], 3, qcf0);	//反向扫描
@@ -1450,7 +1450,7 @@ void de_coef3d_dc5B_L2(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a, b+2, c-2, lg, m[39], 3, qcf0);	//反向扫描
@@ -1483,7 +1483,7 @@ void de_coef3d_dc5B_L1(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a, b, c, lg, m[40], 3, qcf0);
@@ -1496,7 +1496,7 @@ void de_coef3d_dc5B_L1(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a, b + 4, c, lg, m[40], 3, qcf0);	//反向扫描
@@ -1509,7 +1509,7 @@ void de_coef3d_dc5B_L1(int H, int W, int a, int b, int c, int *w, int *h, int **
 	}
 	else{
 		qcf0 = (float*)calloc(lg, sizeof(float));
-		printf("子带全为零\n");
+		//printf("子带全为零\n");
 	}
 
 	scan_inv_L2(H, W, a, b + 4, c - 4, lg, m[40], 3, qcf0);	//反向扫描

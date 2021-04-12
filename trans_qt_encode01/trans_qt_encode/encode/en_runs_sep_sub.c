@@ -22,7 +22,8 @@ int en_runs_sep_sub (int thd, uint *rk, uint *nk, uint *rw, int lenrk, int lenrw
 
     if (thd > 1)
     {
-        if ( (thd < 10 & lenrk > 500) | (thd < 7 & lenrk > 300) | (thd < 4 & lenrk > 150))
+        //if ( (thd < 10 & lenrk > 500) | (thd < 7 & lenrk > 300) | (thd < 4 & lenrk > 150))
+		if ((thd < 10 && lenrk > 500) || (thd < 7 && lenrk > 300) || (thd < 4 && lenrk > 150))
         {
             //printf("en_runs_sep_sub 1:\n");///
             en_Kside(rk, lenrk, thd);

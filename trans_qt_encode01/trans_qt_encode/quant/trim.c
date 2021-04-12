@@ -32,49 +32,49 @@ int trim_coef_1pix(uchar *sgn, int *runs, int lg, int len, int ptr, float *fabsA
 	int len1 = len + ptr - 1;
 	pos += runs[0];
 	pos--; //这里pos--是因为在matlab里，pos初始值是0；在matlab里pos+7，在这里相当于pos+6，因为数组索引是0开始
-	for (i = 0; i < (lg - 1); i++){
-		if (runs[i]>1){
-			lenp = runs[i] < runs[i+1] ? runs[i] : runs[i+1]; //求出runs[i]和runs[i+1]最小值
-			if (lenp>1){
-				if (absA[pos] < T[lenp-1]){ //因为T和T2都已经增加了一个长度，所以这里和matlab一样，索引从1开始
+	for (i = 0; i < (lg - 1); i++) {
+		if (runs[i] > 1) {
+			lenp = runs[i] < runs[i + 1] ? runs[i] : runs[i + 1]; //求出runs[i]和runs[i+1]最小值
+			if (lenp > 1) {
+				if (absA[pos] < T[lenp - 1]) { //因为T和T2都已经增加了一个长度，所以这里和matlab一样，索引从1开始
 					fabsA[pos] = 0;
 					sgn[pos] = 0;
 					pos += runs[i + 1];
-					runs[i+1] += runs[i];
+					runs[i + 1] += runs[i];
 				}
-				else{
+				else {
 					runs[j] = runs[i];
-					pos += runs[i+1];
+					pos += runs[i + 1];
 					j++;
 				}
 			}
-			else{
+			else {
 				runs[j] = runs[i];
 				pos += runs[i + 1];
 				j++;
 			}
 		}
-		else{
+		else {
 			runs[j] = runs[i];
 			pos += runs[i + 1];
 			j++;
 		}
 	}
-	runs[j] = runs[lg-1];
-	if (fabsA[len1] > 0){
+	runs[j] = runs[lg - 1];
+	if (fabsA[len1] > 0) {
 		lenp = runs[lg - 1];
-		if (lenp > 1){
-			if (absA[len1] < T[lenp-1]){
+		if (lenp > 1) {
+			if (absA[len1] < T[lenp - 1]) {
 				fabsA[len1] = 0;
 				sgn[len1] = 0;
 				runs[j]++;
 			}
-			else{
+			else {
 				j++;
 				runs[j] = 1;
 			}
 		}
-		else{
+		else {
 			j++;
 			runs[j] = 1;
 		}
@@ -85,9 +85,9 @@ int trim_coef_1pix(uchar *sgn, int *runs, int lg, int len, int ptr, float *fabsA
 }
 /*************************************/
 /*cf0和absA都fliplr, lgr为runs右边界,runs为从右往左开始,返回值为左边界lgl*/
-int trim_coef_1pixf(uchar *sgn, int *runs, int lgr, int len, int ptr, float *fabsA) 
+int trim_coef_1pixf(uchar *sgn, int *runs, int lgr, int len, int ptr, float *fabsA)
 {
-	int pos = len+ptr, i, lenp, j, st;
+	int pos = len + ptr, i, lenp, j, st;
 	extern double *T;
 	extern double *absA;
 	j = lgr;
@@ -95,49 +95,49 @@ int trim_coef_1pixf(uchar *sgn, int *runs, int lgr, int len, int ptr, float *fab
 	if (!runs[0])
 		st = 1;
 	else st = 0;
-	for (i = lgr; i > st; i--){
-		if (runs[i]>1){
-			lenp = runs[i] < runs[i-1] ? runs[i] : runs[i-1]; //求出runs[i]和runs[i-1]最小值
-			if (lenp>1){
-				if (absA[pos] < T[lenp-1]){
+	for (i = lgr; i > st; i--) {
+		if (runs[i] > 1) {
+			lenp = runs[i] < runs[i - 1] ? runs[i] : runs[i - 1]; //求出runs[i]和runs[i-1]最小值
+			if (lenp > 1) {
+				if (absA[pos] < T[lenp - 1]) {
 					fabsA[pos] = 0;
 					sgn[pos] = 0;
 					pos -= runs[i - 1];
-					runs[ i - 1] += + runs[i];
+					runs[i - 1] += +runs[i];
 				}
-				else{
+				else {
 					runs[j] = runs[i];
 					pos -= runs[i - 1];
 					j--;
 				}
 			}
-			else{
+			else {
 				runs[j] = runs[i];
 				pos -= runs[i - 1];
 				j--;
 			}
 		}
-		else{
+		else {
 			runs[j] = runs[i];
 			pos -= runs[i - 1];
 			j--;
 		}
 	}
 	runs[j] = runs[st];
-	if (fabsA[ptr] > 0){
+	if (fabsA[ptr] > 0) {
 		lenp = runs[st];
-		if (lenp > 1){
-			if (absA[ptr] < T[lenp-1]){
+		if (lenp > 1) {
+			if (absA[ptr] < T[lenp - 1]) {
 				fabsA[ptr] = 0;
 				sgn[ptr] = 0;
 				runs[j]++;
 			}
-			else{
+			else {
 				j--;
 				runs[j] = 1;
 			}
 		}
-		else{
+		else {
 			j--;
 			runs[j] = 1;
 		}
@@ -149,7 +149,7 @@ int trim_coef_1pixf(uchar *sgn, int *runs, int lgr, int len, int ptr, float *fab
 }
 /*********************************************/
 /*cf0和absA为正方向,lgl为runs左边界, lgr为右边界,runs为从左往右开始,返回值为lgr*/
-int trim_coef_pix1(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, float *fabsA)  
+int trim_coef_pix1(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, float *fabsA)
 {
 	int pos = ptr, i, lenp, j, st;
 	extern double *T;
@@ -162,39 +162,39 @@ int trim_coef_pix1(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 		st = lgr - 1;
 	else
 		st = lgr;
-	for (i = lgl; i < st; i++){
-		if (runs[i]>1){
-			lenp = runs[i]<runs[i + 1] ? runs[i] : runs[i + 1]; //求出runs[i]和runs[i+1]最小值
-			if (lenp>1){
-				if (absA[pos] < T[lenp-1]){
+	for (i = lgl; i < st; i++) {
+		if (runs[i] > 1) {
+			lenp = runs[i] < runs[i + 1] ? runs[i] : runs[i + 1]; //求出runs[i]和runs[i+1]最小值
+			if (lenp > 1) {
+				if (absA[pos] < T[lenp - 1]) {
 					fabsA[pos] = 0;
 					sgn[pos] = 0;
 					pos += runs[i + 1];
-					runs[i + 1] += + runs[i];
+					runs[i + 1] += +runs[i];
 				}
-				else{
+				else {
 					runs[j] = runs[i];
 					pos += runs[i + 1];
 					j++;
 				}
 			}
-			else{
+			else {
 				runs[j] = runs[i];
 				pos += runs[i + 1];
 				j++;
 			}
 		}
-		else{
+		else {
 			runs[j] = runs[i];
 			pos += runs[i + 1];
 			j++;
 		}
 	}
 	runs[j] = runs[st];
-	if (fabsA[len1] > 0){
+	if (fabsA[len1] > 0) {
 		lenp = runs[st];
-		if (lenp > 1){
-			if (absA[len1] < T[lenp-1]){
+		if (lenp > 1) {
+			if (absA[len1] < T[lenp - 1]) {
 				fabsA[len1] = 0;
 				sgn[len1] = 0;
 			}
@@ -215,37 +215,37 @@ int trim_coef_2pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 	i = lgl; j = lgl;
 	pos += runs[i];
 	pos--;
-	while (i <= lgr-2 ){
+	while (i <= lgr - 2) {
 		lenp1 = runs[i]; i++;
 		lenp2 = runs[i]; i++;
 		lenp3 = runs[i];
-		if ((lenp1 > lenp2) && (lenp3 > lenp2)){
+		if ((lenp1 > lenp2) && (lenp3 > lenp2)) {
 			posA = pos + lenp2;
 			ssb = absA2[pos] + absA2[posA];
 			if (T2[lenp1] < T2[lenp3])
 				th = T2[lenp1] + T2[lenp2];
 			else th = T2[lenp2] + T2[lenp3];
-			if (ssb < th){
+			if (ssb < th) {
 				fabsA[pos] = 0; fabsA[posA] = 0;
 				sgn[pos] = 0; sgn[posA] = 0;
 				runs[i] = lenp3 + lenp1 + lenp2;
 				pos = posA + lenp3;
 			}
-			else{
+			else {
 				runs[j] = lenp1; j++;
 				pos += lenp2; i--; //这里的i--是为了匹配前面的第一行和第二行的两个i++，因为前面相当于前进了两个，这里后退一个。
 			}
 		}
-		else{
+		else {
 			runs[j] = lenp1; j++;
 			pos += lenp2; i--;
 		}
 	}
-	while (i <= lgr){
+	while (i <= lgr) {
 		runs[j] = runs[i];
 		j++; i++;
 	}
-	if (!fabsA[len1]){
+	if (!fabsA[len1]) {
 		j--;
 		runs[j]++;
 	}
@@ -258,7 +258,7 @@ int trim_coef_2pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 /*cf0和absA都fliplr, lgr为runs右边界,runs为从右往左开始,返回值为左边界lgl*/
 int trim_coef_2pixf(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, float *fabsA)
 {
-	int i, j, pos = len+ptr, posA, st;
+	int i, j, pos = len + ptr, posA, st;
 	int lenp1, lenp2, lenp3;
 	extern double *T2;
 	extern double *absA2;
@@ -270,37 +270,37 @@ int trim_coef_2pixf(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, f
 		st = lgl;
 	pos -= runs[i];
 
-	while (i >= st+2){
+	while (i >= st + 2) {
 		lenp1 = runs[i]; i--;
 		lenp2 = runs[i]; i--;
 		lenp3 = runs[i];
-		if ((lenp1 > lenp2) && (lenp3 > lenp2)){
+		if ((lenp1 > lenp2) && (lenp3 > lenp2)) {
 			posA = pos - lenp2;
 			ssb = absA2[pos] + absA2[posA];
 			if (T2[lenp1] < T2[lenp3])
 				th = T2[lenp1] + T2[lenp2];
 			else  th = T2[lenp2] + T2[lenp3];
-			if (ssb < th){
+			if (ssb < th) {
 				fabsA[pos] = 0; fabsA[posA] = 0;
 				sgn[pos] = 0; sgn[posA] = 0;
 				runs[i] = lenp3 + lenp1 + lenp2;
 				pos = posA - lenp3;
 			}
-			else{
+			else {
 				runs[j] = lenp1; j--;
 				pos -= lenp2; i++;
 			}
 		}
-		else{
+		else {
 			runs[j] = lenp1; j--;
 			pos -= lenp2; i++;
 		}
 	}
-	while (i >= st){
+	while (i >= st) {
 		runs[j] = runs[i];
 		j--; i--;
 	}
-	if (!fabsA[ptr]){
+	if (!fabsA[ptr]) {
 		j++;
 		runs[j]++;
 	}
@@ -326,39 +326,39 @@ int trim_coef_3pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 		st = lgr;
 	pos += runs[i];
 	pos--;
-	while (i <= st-3){
+	while (i <= st - 3) {
 		lenp1 = runs[i]; i++;
 		lenp2 = runs[i]; i++;
 		lenp3 = runs[i]; i++;
 		lenp4 = runs[i];
 		lenp = lenp2 > lenp3 ? lenp2 : lenp3;
-		if ((lenp1 > lenp) && (lenp4 > lenp)){
+		if ((lenp1 > lenp) && (lenp4 > lenp)) {
 			posA = pos + lenp2; posB = posA + lenp3;
 			ssb = absA2[pos] + absA2[posA] + absA2[posB];
 			if (T2[lenp1] < T2[lenp4])
 				th = T2[lenp1] + T2[lenp2] + T2[lenp3];
 			else  th = T2[lenp2] + T2[lenp3] + T2[lenp4];
-			if (ssb < th){
+			if (ssb < th) {
 				fabsA[pos] = 0; fabsA[posA] = 0; fabsA[posB] = 0;
 				sgn[pos] = 0; sgn[posA] = 0; sgn[posB] = 0;
 				runs[i] = lenp4 + lenp1 + lenp2 + lenp3;
 				pos = posB + lenp4;
 			}
-			else{
+			else {
 				runs[j] = lenp1; j++;
 				pos += lenp2; i -= 2;
 			}
 		}
-		else{
+		else {
 			runs[j] = lenp1; j++;
 			pos += lenp2; i -= 2;
 		}
 	}
-	while (i <= st){
+	while (i <= st) {
 		runs[j] = runs[i];
 		j++; i++;
 	}
-	if (!fabsA[len1]){
+	if (!fabsA[len1]) {
 		j--;
 		runs[j]++;
 	}
@@ -371,7 +371,7 @@ int trim_coef_3pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 /*cf0和absA都fliplr, lgr为runs右边界,runs为从右往左开始,返回值为左边界lgl*/
 int trim_coef_3pixf(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, float *fabsA)
 {
-	int i, j, pos=len+ptr, posA, posB, lenp, st;
+	int i, j, pos = len + ptr, posA, posB, lenp, st;
 	int lenp1, lenp2, lenp3, lenp4;
 	extern double *T2;
 	extern double *absA2;
@@ -382,40 +382,40 @@ int trim_coef_3pixf(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, f
 	else
 		st = lgl;
 	pos -= runs[i];
-	while (i >= st+3){
+	while (i >= st + 3) {
 		lenp1 = runs[i]; i--;
 		lenp2 = runs[i]; i--;
 		lenp3 = runs[i]; i--;
 		lenp4 = runs[i];
 		lenp = lenp2 > lenp3 ? lenp2 : lenp3;
-		if ((lenp1 > lenp) && (lenp4 > lenp)){
+		if ((lenp1 > lenp) && (lenp4 > lenp)) {
 			posA = pos - lenp2; posB = posA - lenp3;
 			ssb = absA2[pos] + absA2[posA] + absA2[posB];
 			if (T2[lenp1] < T2[lenp4])
 				th = T2[lenp1] + T2[lenp2] + T2[lenp3];
 			else  th = T2[lenp2] + T2[lenp3] + T2[lenp4];
-			if (ssb < th){
+			if (ssb < th) {
 				fabsA[pos] = 0; sgn[pos] = 0;
 				fabsA[posA] = 0; sgn[posA] = 0;
 				fabsA[posB] = 0; sgn[posB] = 0;
 				runs[i] = lenp4 + lenp1 + lenp2 + lenp3;
 				pos = posB - lenp4;
 			}
-			else{
+			else {
 				runs[j] = lenp1; j--;
 				pos -= lenp2; i += 2;
 			}
 		}
-		else{
+		else {
 			runs[j] = lenp1; j--;
 			pos -= lenp2; i += 2;
 		}
 	}
-	while (i >= st){
+	while (i >= st) {
 		runs[j] = runs[i];
 		j--; i--;
 	}
-	if (!fabsA[ptr]){
+	if (!fabsA[ptr]) {
 		j++;
 		runs[j]++;
 	}
@@ -440,7 +440,7 @@ int trim_coef_4pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 		st = lgr;
 	pos += runs[i];
 	pos--;
-	while (i <= st-4){
+	while (i <= st - 4) {
 		lenp1 = runs[i]; i++;
 		lenp2 = runs[i]; i++;
 		lenp3 = runs[i]; i++;
@@ -448,15 +448,15 @@ int trim_coef_4pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 		lenp5 = runs[i];
 		if (lenp2 > lenp3) lenp = lenp2;
 		else lenp = lenp3;
-		if (lenp<lenp4) lenp = lenp4;
-		if ((lenp1 > lenp) && (lenp5 > lenp)){
+		if (lenp < lenp4) lenp = lenp4;
+		if ((lenp1 > lenp) && (lenp5 > lenp)) {
 			posA = pos + lenp2; posB = posA + lenp3; posC = posB + lenp4;
 			ssb = absA2[pos] + absA2[posA] + absA2[posB] + absA2[posC];
 			temp1 = T2[lenp1] + T2[lenp2] + T2[lenp3] + T2[lenp4];
 			temp2 = T2[lenp2] + T2[lenp3] + T2[lenp4] + T2[lenp5];
 			if (temp1 < temp2) th = temp1;
 			else th = temp2;
-			if (ssb < th){
+			if (ssb < th) {
 				fabsA[pos] = 0; sgn[pos] = 0;
 				fabsA[posA] = 0; sgn[posA] = 0;
 				fabsA[posB] = 0; sgn[posB] = 0;
@@ -464,18 +464,18 @@ int trim_coef_4pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 				runs[i] = lenp5 + lenp4 + lenp1 + lenp2 + lenp3;
 				pos = posC + lenp5;
 			}
-			else{
+			else {
 				runs[j] = lenp1; j++;
 				pos += lenp2; i -= 3;
 			}
 		}
-		else{
+		else {
 			runs[j] = lenp1; j++;
 			pos += lenp2; i -= 3;
 		}
 	}
-	while (i <= st){
-		runs[j] = runs[i]; 
+	while (i <= st) {
+		runs[j] = runs[i];
 		j++; i++;
 	}
 	j--;
@@ -493,7 +493,7 @@ int trim_coef_5pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 	i = lgl; j = lgl;
 	pos += runs[i];
 	pos--;
-	while (i <= lgr-5){
+	while (i <= lgr - 5) {
 		lenp1 = runs[i]; i++;
 		lenp2 = runs[i]; i++;
 		lenp3 = runs[i]; i++;
@@ -502,9 +502,9 @@ int trim_coef_5pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 		lenp6 = runs[i];
 		if (lenp2 > lenp3) lenp = lenp2;
 		else lenp = lenp3;
-		if (lenp<lenp4) lenp = lenp4;
-		if (lenp<lenp5) lenp = lenp5;
-		if ((lenp1 > lenp) && (lenp6 > lenp)){
+		if (lenp < lenp4) lenp = lenp4;
+		if (lenp < lenp5) lenp = lenp5;
+		if ((lenp1 > lenp) && (lenp6 > lenp)) {
 			posA = pos + lenp2; posB = posA + lenp3;
 			posC = posB + lenp4; posD = posC + lenp5;
 			ssb = absA2[pos] + absA2[posA] + absA2[posB] + absA2[posC] + absA2[posD];
@@ -512,7 +512,7 @@ int trim_coef_5pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 			temp2 = T2[lenp2] + T2[lenp3] + T2[lenp4] + T2[lenp5] + T2[lenp6];
 			if (temp1 < temp2) th = temp1;
 			else th = temp2;
-			if (ssb < th){
+			if (ssb < th) {
 				fabsA[pos] = 0; sgn[pos] = 0;
 				fabsA[posA] = 0; sgn[posA] = 0;
 				fabsA[posB] = 0; sgn[posB] = 0;
@@ -521,17 +521,17 @@ int trim_coef_5pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 				runs[i] = lenp6 + lenp1 + lenp2 + lenp3 + lenp4 + lenp5;
 				pos = posD + lenp6;
 			}
-			else{
+			else {
 				runs[j] = lenp1; j++;
 				pos += lenp2; i -= 4;
 			}
 		}
-		else{
+		else {
 			runs[j] = lenp1; j++;
 			pos += lenp2; i -= 4;
 		}
 	}
-	while (i <= lgr){
+	while (i <= lgr) {
 		runs[j] = runs[i];
 		j++; i++;
 	}
@@ -543,52 +543,56 @@ int trim_coef_5pix(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, fl
 int trim_coef_pix1f(uchar *sgn, int *runs, int lgl, int lgr, int len, int ptr, float *fabsA) //finally pix
 {
 	int pos = ptr, i, lenp, temp, j;
-	int flg = 1;
+	int flg = 1, sum = 0;
 	extern double *T;
 	extern double *absA;
 	int len1 = len + ptr - 1;
 	pos += runs[lgl];
 	pos--; j = 0;
-	for (i = lgl; i <= lgr; i++){
-		if (runs[i]>1){
+	for (i = lgl; i <= lgr; i++) {
+		if (runs[i] > 1) {
 			if (runs[i] < runs[i + 1]) lenp = runs[i];
 			else lenp = runs[i + 1];
-			if (lenp>1){
-				if (absA[pos] < T[lenp-1]){
+			if (lenp > 1) {
+				if (absA[pos] < T[lenp - 1]) {
 					fabsA[pos] = 0;
 					sgn[pos] = 0;
 					temp = runs[i + 1];
 					runs[i + 1] = runs[i + 1] + runs[i];
 					pos += temp;
 				}
-				else{
+				else {
 					pos += runs[i + 1];
 					j++;
 				}
 			}
-			else{
+			else {
 				pos += runs[i + 1];
 				j++;
 			}
 		}
-		else{
+		else {
 			pos += runs[i + 1];
 			j++;
 		}
 	}
-	if (fabsA[len1]>0){
+	if (fabsA[len1] > 0) {
 		lenp = runs[lgr];
-		if (lenp > 1){
-			if (absA[len1] < T[lenp-1]){
+		if (lenp > 1) {
+			if (absA[len1] < T[lenp - 1]) {
 				fabsA[len1] = 0;
 				sgn[len1] = 0;
 			}
 		}
 
 	}
-	if (j < 2 && fabsA[len1] == 0){
-		flg = 0;	//这里flg对应matlab里的max(cf0tr)>0的判断，j表示最后trim过后，runs的长度，
-	}				//如果最后j=1，且最后一个值fabsA[len1]=0，那就说明整个子带都为零，即在matlab里max(cf0tr)==0
+	for (int i = ptr; i < len1 + 1; i++)
+		sum += fabsA[i];
+	if (!sum)
+		flg = 0;
+	//if (j < 1 && fabsA[len1] == 0){
+	//	flg = 0;	//这里flg对应matlab里的max(cf0tr)>0的判断，j表示最后trim过后，runs的长度，
+	//}				//如果最后j=1，且最后一个值fabsA[len1]=0，那就说明整个子带都为零，即在matlab里max(cf0tr)==0
 	free(runs);
 	return flg;
 }
