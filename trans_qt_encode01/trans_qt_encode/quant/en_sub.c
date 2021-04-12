@@ -489,6 +489,7 @@ void en_sub7_noharr(int a, int *w, int *h, int **m, double delta)
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
 		sign.dat = snbin;
+		write_en_sub2_sub_data(f1.qcf[3], &sign, lg);
 		en_sub3d_sub2(f1.qcf[3], &sign, lg, maxcf0);
 	}
 #endif
@@ -1192,6 +1193,7 @@ void en_coef3dB_L2_3(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
 		sign.dat = snbin;
+		write_en_sub2_sub_data(f1.qcf[3], &sign, lg);
 		en_sub3d_sub2(f1.qcf[3], &sign, lg, maxcf0);
 	}
 #endif

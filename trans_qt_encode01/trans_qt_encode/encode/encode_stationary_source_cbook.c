@@ -47,36 +47,36 @@ ESSC encode_stationary_source_cbook (float pw)
 
       else if (pw > 0.001082456190803)
          essc1.codebook = 16, essc1.k = 9, essc1.m = 512, essc1.cls = 0; //essc1.m=512
-      else if (pw > 7.733e-4)
+      else if (pw > 7.733026113198038e-4)
          essc1.codebook = 17, essc1.k = 8, essc1.m = 768, essc1.m1 = 256, essc1.m2 = 512, essc1.cls = 1; //essc1.m=768
-      else if (pw > 5.4137e-4)
+      else if (pw > 5.413746386514484e-4)
          essc1.codebook = 18, essc1.k = 10, essc1.m = 1024, essc1.cls = 0; //essc1.m=1024
-      else if (pw > 3.8673e-4)
+      else if (pw > 3.867260841919906e-4)
          essc1.codebook = 19, essc1.k = 9, essc1.m = 1536, essc1.m1 = 512, essc1.m2 = 1024, essc1.cls = 1; //essc1.m=1536
-      else if (pw > 2.7072e-4)
+      else if (pw > 2.707239650583393e-4)
          essc1.codebook = 20, essc1.k = 11, essc1.m = 2048, essc1.cls = 0; //essc1.m=2048
-      else if (pw > 1.9338e-4)
+      else if (pw > 1.933817403447780e-4)
          essc1.codebook = 21, essc1.k = 10, essc1.m = 3072, essc1.m1 = 1024, essc1.m2 = 2048, essc1.cls = 1; //essc1.m=3072
-      else if (pw > 1.3537e-4)
+      else if (pw > 1.353711452026785e-4)
          essc1.codebook = 22, essc1.k = 12, essc1.m = 4096, essc1.cls = 0; //essc1.m=4096
-      else if (pw > 9.6696e-5)
+      else if (pw > 9.669554518665358e-5)
          essc1.codebook = 23, essc1.k = 11, essc1.m = 6144, essc1.m1 = 2048, essc1.m2 = 4096, essc1.cls = 1; //essc1.m=6144
 
-      else if (pw > 6.7688e-5)
+      else if (pw > 6.768786342470356e-5)
          essc1.codebook = 24, essc1.k = 13, essc1.m = 8192, essc1.cls = 0; //essc1.m=8192
-      else if (pw > 4.8349e-5)
+      else if (pw > 4.834894140337553e-5)
          essc1.codebook = 25, essc1.k = 12, essc1.m = 12288, essc1.m1 = 4096, essc1.m2 = 8192, essc1.cls = 1; //essc1.m=12288
-      else if (pw > 3.3845e-5)
+      else if (pw > 3.384450443766340e-5)
          essc1.codebook = 26, essc1.k = 14, essc1.m = 16384, essc1.cls = 0; //essc1.m=16384
-      else if (pw > 2.4175e-5)
+      else if (pw > 2.417476291127763e-5)
          essc1.codebook = 27, essc1.k = 13, essc1.m = 24576, essc1.m1 = 8192, essc1.m2 = 16384, essc1.cls = 1; //essc1.m=24576
-      else if (pw > 1.6922e-5)
+      else if (pw > 1.692239540251883e-5)
          essc1.codebook = 28, essc1.k = 15, essc1.m = 32768, essc1.cls = 0; //essc1.m=32768
-      else if (pw > 1.2087e-5)
+      else if (pw > 1.208745450886894e-5)
          essc1.codebook = 29, essc1.k = 14, essc1.m = 49152, essc1.m1 = 16384, essc1.m2 = 32768, essc1.cls = 1; //essc1.m=49152
-      else if (pw > 8.4612e-6)
+      else if (pw > 8.461233497514264e-6)
          essc1.codebook = 30, essc1.k = 16, essc1.m = 65536, essc1.cls = 0; //essc1.m=65536
-      else if (pw > 6.0437e-6)
+      else if (pw > 6.043745517936294e-6)
          essc1.codebook = 31, essc1.k = 15, essc1.m = 98304, essc1.m1 = 32768, essc1.m2 = 65536, essc1.cls = 1; //essc1.m=98304
       else
          essc1.codebook = 32, essc1.k = 17, essc1.m = 131072, essc1.cls = 0; //essc1.m=131072

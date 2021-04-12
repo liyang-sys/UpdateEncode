@@ -1,2 +1,5 @@
-﻿  de_sub.c
+﻿  main.c
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\main.c(178): warning C4474: scanf_s: 格式字符串中传递的参数太多
+  c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\main.c(178): note: 占位符和其参数预计 1 可变参数，但提供的却是 2 参数
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\main.c(444): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
   trans_qt_encode.vcxproj -> C:\Users\liyang\Desktop\BiShe\UpdateEncode\trans_qt_encode01\x64\Debug\trans_qt_encode.exe
