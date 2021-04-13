@@ -113,11 +113,11 @@ DEC de_KsideSub (uchar *bin, int len)
 				if (!bn)
 				{
 					DeKsideSub.lenzbit = len;
-					int tepIndex = (len / 8) + 1;
-					for (int i = 0; i < tepIndex; i++)
-					{
-						DeKsideSub.z[i] = 255;
-					}
+					//int tepIndex = (len / 8) + 1;
+					//for (int i = 0; i < tepIndex; i++)
+					//{
+					//	DeKsideSub.z[i] = 255;
+					//}
 				}
 				else
 				{

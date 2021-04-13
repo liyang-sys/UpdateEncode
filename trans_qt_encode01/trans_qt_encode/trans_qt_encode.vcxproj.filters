@@ -363,6 +363,15 @@
     <ClCompile Include="test_en_sub3d_sub2.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="write_separate_inv_data.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="write_int_data.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="write_uint_data.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="all.h">

@@ -96,4 +96,7 @@ void encode_stationary_source_Nsym_in_en_Kside_new(uint *r, int lenr, float p_or
 void writeBinToFile(unsigned char *bin, int ptr);
 void write_en_sub2_sub_data(float* cf0, Uint8_Dat* sn, int lencf0);
 void test_en_sub3d_sub2();
+void write_separate_inv_data(Uint32_Dat rw1, Uint32_Dat rk1);
+void write_int_data(int *data, int len, char*name);
+void write_uint_data(unsigned int *data, int len, char*name);
 #endif /* __ENCODING_H */

@@ -240,6 +240,9 @@
     <ClCompile Include="trans\SCWP8-method2_all_3.c" />
     <ClCompile Include="writeBinToFile.c" />
     <ClCompile Include="write_en_sub2_sub_data.c" />
+    <ClCompile Include="write_int_data.c" />
+    <ClCompile Include="write_separate_inv_data.c" />
+    <ClCompile Include="write_uint_data.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="all.h" />

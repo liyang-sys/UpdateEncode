@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "all.h"
+#include "encoding.h"
 
 #define uint unsigned int
 #define uchar unsigned char
@@ -61,6 +62,7 @@ DEC de_Kside_new(uchar *bin, int lenr, int thd, int lenby)
 
 
 			dec1 = decode_stationary_source_sumr(bin, codebook, lenr);
+			//write_int_data(dec1.r, dec1.lenr, "cRuns.txt");
 			golinv1 = GolombInv(dec1.r, lastBit, dec1.lenr);
 
 			for (i = 0; i < golinv1.lenzbit; i++)
@@ -290,10 +292,16 @@ DEC de_Kside_new(uchar *bin, int lenr, int thd, int lenby)
 
 		rB1 = malloc((tlenc - sum1) * sizeof(int));
 		for (i = 0; i < (tlenc - sum1); i++) rB1[i] = 1;
+
+
+		//write_int_data(rA1, tlenc, "cRa1.txt");
+		//write_int_data(rB1, 82, "cRb1.txt");
 		rA = separate_inv(tempc1, rA1, rB1, tlenc, 1);
 
 		free(tempc1); free(rA1); free(rB1);
 
+		//write_int_data(rA, tlenc, "cRa.txt");
+		//write_int_data(rB, 82, "cRb.txt");
 		DeKside.r = separate_inv(tempc, rA, rB, lenr, 2);
 
 		free(tempc); free(rA); free(rB);

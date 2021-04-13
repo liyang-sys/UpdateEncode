@@ -142,6 +142,8 @@ void de_zone_sub_new(uchar *_bin, int lenbinbit, Uint32_Dat *rrw, Uint32_Dat *rk
 	rrw->dat = der.r;
 	rrw->len = der.lenr;
 
+	//write_uint_data(rrw->dat, rrw->len, "cRrw.txt");
+
 	/* %decoding rk's: ---------------------------------------------------- */
 	lenk = malloc(sizeof(int)*nsep);
 	memset(lenk, 0, sizeof(int)*nsep);
@@ -188,6 +190,11 @@ void de_zone_sub_new(uchar *_bin, int lenbinbit, Uint32_Dat *rrw, Uint32_Dat *rk
 			for (int i = 0; i < rk[nsp - 1].len; i++) rk[nsp - 1].dat[i] = 1;
 		}
 	}
+
+
+
+	//write_uint_data(rk[0].dat, rk[0].len, "cRk0.txt");
+	//write_uint_data(rk[1].dat, rk[1].len, "cRk1.txt");
 	/*! %synthesize r ------------------------------------------------------------------ */
 	unsigned int * r_temp;
 	for (int nsp = nsep; nsp >= 1; nsp--) {

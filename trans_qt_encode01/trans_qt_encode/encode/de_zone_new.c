@@ -194,6 +194,7 @@ DEC de_zone_new(uchar *biny,int lenbinbit)
 	{
 		if (maxsep1 == 1)
 		{
+			write_separate_inv_data(rw1, rk1);
 			r.dat = separate_inv(sep1.z, rw1.dat, rk1.dat,sep1.lenzbit, thd1);
 			r.len = sep1.lenzbit;
 		}
