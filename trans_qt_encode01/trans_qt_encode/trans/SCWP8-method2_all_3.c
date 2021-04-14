@@ -5461,8 +5461,8 @@ unsigned char *** forward_transform(int N, int M) //N是宽 M是高
 	n = N / 8;
 
 	printf("变换准备工作开始:\n");
-	ImgData = readYUV("BirdsInCage_1920x1080_60_8bit_422.yuv", M, N, 1, 96, 422);
-	//ImgData = readYUV("OldTownCross_1920x1080_50_8bit_422.yuv", M, N, 1, 96, 422);
+	//ImgData = readYUV("BirdsInCage_1920x1080_60_8bit_422.yuv", M, N, 1, 96, 422);
+	ImgData = readYUV("OldTownCross_1920x1080_50_8bit_422.yuv", M, N, 1, 96, 422);
 	if (ImgData){
 		for (i = 0; i < 96; i++)
 		{

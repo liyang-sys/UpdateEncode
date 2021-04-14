@@ -68,7 +68,14 @@ void en_video_full(int H, int W, int *w, int *h, int **m0, double delta)
 	en_coef3d_dc(0, w, h, m0, delta);
 	en_coed3d_7(0, w, h, m0, delta);
 	for (int i = 1; i < 8; i++)
+	{
+		if (i == 5)
+		{
+			int tempTest = 0;
+		}
 		en_coed3d_8(0, i, w, h, m0, delta);
+	}
+		
 	/*L4 == == == == == == == == == == == == == == == == == ==*/
 	en_coef3dB_dc(0, w, h, m0, delta);
 	en_coef3dB_L3(H, W, 0, 0, 1, w, h, m0, delta);
