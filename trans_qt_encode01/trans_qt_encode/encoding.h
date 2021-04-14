@@ -43,7 +43,8 @@ void en_zone_sub2(Uint32_Dat*r);//biny得在调用此函数之前编入bin中去
 
 void en_runs_0seps(Uint8_Dat* sep, unsigned char cbook);
 void en_runs_1sep(Uint32_Dat* r, float p, unsigned char cbook, int lenz, SEP* sep);
-void prob_est(Uint32_Dat* n, float *p);
+//void prob_est(Uint32_Dat* n, float *p);
+void prob_est(Uint32_Dat* n, double *p);
 DEC de_r_cr(uchar *bin, int len, int lenbinbit);
 void de_runs_0seps(unsigned char cbook, Uint8_Dat* sep);
 void de_runs_1sep(int lenr, unsigned char cbook, Uint32_Dat* r, int lenbinbit);
@@ -54,7 +55,8 @@ void en_zone_new(Uint32_Dat*r, Uint32_Dat*nc);
 int  find_thd_idx(Uint32_Dat*n, float p, int *th);
 void en_runs_2seps(Uint32_Dat* r, float p, int lenz, unsigned char cbook, SEP* sep);
 void en_Kside_new(int *rk, int l_rk, int *nk, int l_nk, int thd);
-void probility_estimation(Uint32_Dat* rk, Uint32_Dat* nk, float *prob);
+//void probility_estimation(Uint32_Dat* rk, Uint32_Dat* nk, float *prob);
+void probility_estimation(Uint32_Dat* rk, Uint32_Dat* nk, double *prob);
 void en_zone_sub_new(Uint32_Dat* r, float kcr, SEP **sep);
 void en_runs_2sepsA(Uint32_Dat* r, float p, unsigned char cbook, SEP* sep);
 DEC de_zone_new(uchar *bin, int lenbinbit);

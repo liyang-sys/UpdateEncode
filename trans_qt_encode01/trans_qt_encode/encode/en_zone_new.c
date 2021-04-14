@@ -115,7 +115,7 @@ void en_zone_new(Uint32_Dat*r, Uint32_Dat*nc)
 		nckInt32.dat = nck.dat;
 		nckInt32.len = nck.len;
 
-		float prob;
+		double prob;
 		probility_estimation(&rk1, &nckInt32, &prob);
 		if ((prob > 0.15) && (thd1 <= 16))
 		{
@@ -218,7 +218,7 @@ void en_zone_new(Uint32_Dat*r, Uint32_Dat*nc)
 				Uint32_Dat rk2;
 				rk2.dat = rw.dat;
 				rk2.len = sep2.lrk;
-				float prob2;
+				double prob2;
 				probility_estimation(&rk2, &nck2, &prob2);
 				if ((prob2 > 0.15) & (thd2 <= 16))
 				{

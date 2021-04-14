@@ -115,7 +115,7 @@ void en_zone_sub2(Uint32_Dat*r)//biny得在调用此函数之前编入bin中去
 
 	en_r0(sep1.rw, sep1.lrw);
 
-	float prb1;
+	double prb1;
 	prob_est(&nk1,&prb1);
 	Uint32_Dat rk;
 	rk.dat = sep0.rw;

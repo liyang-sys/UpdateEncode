@@ -69,10 +69,10 @@ void en_video_full(int H, int W, int *w, int *h, int **m0, double delta)
 	en_coed3d_7(0, w, h, m0, delta);
 	for (int i = 1; i < 8; i++)
 	{
-		if (i == 5)
-		{
-			int tempTest = 0;
-		}
+		//if (i == 5)
+		//{
+		//	int tempTest = 0;
+		//}
 		en_coed3d_8(0, i, w, h, m0, delta);
 	}
 		

@@ -14,7 +14,7 @@ int en_runs_sep_sub (int thd, uint *rk, uint *nk, uint *rw, int lenrk, int lenrw
     extern uchar *bin;
     int x;
     int sumrk;
-    float pk;
+    double pk;
     SFC sfc1;
     GOLINV golinv1;
 
@@ -31,7 +31,7 @@ int en_runs_sep_sub (int thd, uint *rk, uint *nk, uint *rw, int lenrk, int lenrw
         else
         {
             sumrk = sum(rk, lenrk);
-            pk = (float) lenrk / (float) sumrk;
+            pk = (double) lenrk / (double) sumrk;
             if (pk < 0.32)
             {
                 //printf("en_runs_sep_sub 2:\n");///

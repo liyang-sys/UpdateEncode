@@ -43,7 +43,7 @@ void en_zone_sub_new(Uint32_Dat* r, float kcr, SEP **sep)
 	int idx = 0;
 	int thd = 0;
 	unsigned char cbook = 0;
-	float prob = 0;
+	double prob = 0;
 
 
 	/* p1=1-1/4-1/16+1/64; */

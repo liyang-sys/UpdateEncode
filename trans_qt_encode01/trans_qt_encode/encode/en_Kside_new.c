@@ -224,7 +224,7 @@ void en_Kside_new(int *rk, int l_rk, int *nk, int l_nk, int thd)
 		}
 		en_KsideSub(rB, Separate0.lrk, sumr);
 		/* p=probility_estimation(rA,nA); */
-		float p = 0;
+		double p = 0;
 		Uint32_Dat rA_temp;
 		rA_temp.dat = Separate0.rw;
 		rA_temp.len = Separate0.lrw;
