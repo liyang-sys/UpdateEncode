@@ -1,6 +1,10 @@
-﻿  en_runs_sep_sub.c
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\en_runs_sep_sub.c(39): warning C4244: “函数”: 从“double”转换到“float”，可能丢失数据
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\en_runs_sep_sub.c(12): warning C4101: “rem”: 未引用的局部变量
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\en_runs_sep_sub.c(18): warning C4101: “sfc1”: 未引用的局部变量
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\en_runs_sep_sub.c(57): warning C4716: “en_runs_sep_sub”: 必须返回一个值
+﻿  en_sub.c
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\quant\en_sub.c(144): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\quant\en_sub.c(190): warning C4244: “=”: 从“int”转换到“float”，可能丢失数据
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\quant\en_sub.c(259): warning C4244: “=”: 从“float”转换到“unsigned __int64”，可能丢失数据
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\quant\en_sub.c(303): warning C4244: “=”: 从“unsigned __int64”转换到“unsigned int”，可能丢失数据
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\quant\en_sub.c(315): warning C4244: “=”: 从“unsigned __int64”转换到“unsigned int”，可能丢失数据
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\quant\en_sub.c(327): warning C4244: “=”: 从“unsigned __int64”转换到“int”，可能丢失数据
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\quant\en_sub.c(1698): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\quant\en_sub.c(1717): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
   trans_qt_encode.vcxproj -> C:\Users\liyang\Desktop\BiShe\UpdateEncode\trans_qt_encode01\x64\Debug\trans_qt_encode.exe

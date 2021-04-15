@@ -11,7 +11,7 @@ int  find_thd_idx(Uint32_Dat*n,float p,int *th) //n的真实数据得从1开始，序号等于
 	{
 		sm += n->dat[i];
 	}
-	float psm = p * sm;
+	double psm = p * sm;
 	int idx = 1;
 	int ssm = n->dat[0];
 	while (ssm < psm)
@@ -31,9 +31,9 @@ int  find_thd_idx(Uint32_Dat*n,float p,int *th) //n的真实数据得从1开始，序号等于
 	//	idx++;
 	//}
 
-	//if ((n->len) - (th[idx - 1]) <= 2)
-	//{
-	//	idx--;
-	//}
+	if ((n->len) - (th[idx]) <= 2)
+	{
+		idx--;
+	}
 	return idx;
 }

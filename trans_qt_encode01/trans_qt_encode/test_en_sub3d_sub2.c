@@ -16,7 +16,7 @@ void test_en_sub3d_sub2()
 		unsigned short int a;
 		uchar b[4];
 	} rem;
-	int snLen = 13061;
+	int snLen = 11584;
 	unsigned char *bigZ = (unsigned char *)calloc(snLen, sizeof(unsigned char));
 	FILE *fp = fopen("SN.txt", "rb");
 	fread(bigZ, sizeof(unsigned char), snLen / 8 + 1, fp);
@@ -57,12 +57,12 @@ void test_en_sub3d_sub2()
 	//	printf("%d ", cf0.dat[i]);
 	//}
 	fp = fopen("CF0Float.txt", "rb");
-	int lg = 129600;
+	int lg = 16080;
 	float *cf0 = (float *)calloc(lg, sizeof(float));
 	fread(cf0, sizeof(float), lg, fp);
 	fclose(fp);
 
-	int maxcf0 = 8;
+	int maxcf0 = 169;
 	en_sub3d_sub2(cf0, &sn, lg, maxcf0);
 	printf("\n±àÂë½áÊøºóptr = %d\n", ptr);
 	fp = fopen("encodeZThd4.txt", "wb");

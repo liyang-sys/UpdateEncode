@@ -103,10 +103,15 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 		z1.len = sepCfk.lensepbit;
 		k_criterion((void *)&z1, &cr1, &crc1, &r1, &lB1, &pr, &nr1, NULL, 1);
 
-		for (int i = 0; i < nr1.len - 1; i++)
+		//for (int i = 0; i < nr1.len - 1; i++)
+		//{
+		//	nr1.dat[i] = nr1.dat[i + 1];
+		//}
+		for (int i = 0; i < nr1.len; i++)
 		{
 			nr1.dat[i] = nr1.dat[i + 1];
 		}
+		//int testInt = nr1.dat[302];
 		//nr1.len = nr1.len - 1;
 
 		//for(int i = 0; i < )
@@ -152,6 +157,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 		{
 			ptr++;
 		}
+		//write_uint_data(nr1.dat, nr1.len, "cNr1.txt");
 		en_r_cr(&r1, lB1, &nr1, scr1, (float)scrc1, pr, &z1Copy);
 		if (crTest.sumcr > 12)
 		{
