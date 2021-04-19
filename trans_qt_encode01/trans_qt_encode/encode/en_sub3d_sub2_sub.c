@@ -742,6 +742,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 		}
 		CR_TEST_RET crTest5 = cr_test(&crTest3Cf2Copy, thdt, &crTest3.nc2);
 		//free(crTest3Cf2Copy.dat);
+		int L3Flag = 0;
 		if (crTest.sumcr > 12)
 		{
 			L2 = 1;
@@ -751,6 +752,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 				L3 = 1;
 				if (crTest2.sumcr > 12)
 				{
+					L3Flag = 2;
 					L3 = 2;
 				}
 
@@ -819,7 +821,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 				//L2 = 2;
 				en_r_cr(&(crTest3.r), crTest3.lB, &(crTest3.nr), crTest3.sumcr, crTest3.sumcrc, crTest3.pr, &(crTest3.z));//bin_r2B
 
-				if ((crTest4.sumcr > 16) && (L3 == 2))
+				if ((crTest4.sumcr > 16) && (L3Flag == 2))
 				{
 					//L3 = 3;
 					en_r_cr(&(crTest4.r), crTest4.lB, &(crTest4.nr), crTest4.sumcr, crTest4.sumcrc, crTest4.pr, &(crTest4.z));//bin23
@@ -1039,7 +1041,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 		}
 		CR_TEST_RET crTest5 = cr_test(&crTest3Cf2Copy, thdt, &crTest3.nc2);
 		//free(crTest3Cf2Copy.dat);
-
+		int L3Flag = 0;
 		if (crTest.sumcr > 12)
 		{
 			L2 = 1;
@@ -1049,6 +1051,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 				L3 = 1;
 				if (crTest2.sumcr > 12)
 				{
+					L3Flag = 2;
 					L3 = 2;
 				}
 
@@ -1119,7 +1122,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 				//L2 = 2;
 				en_r_cr(&(crTest3.r), crTest3.lB, &(crTest3.nr), crTest3.sumcr, crTest3.sumcrc, crTest3.pr, &(crTest3.z));//bin_r2B
 
-				if ((crTest4.sumcr > 16) && (L3 == 2))
+				if ((crTest4.sumcr > 16) && (L3Flag == 2))
 				{
 					//L3 = 3;
 					en_r_cr(&(crTest4.r), crTest4.lB, &(crTest4.nr), crTest4.sumcr, crTest4.sumcrc, crTest4.pr, &(crTest4.z));//bin_r3C
@@ -1348,6 +1351,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 		}
 		CR_TEST_RET crTest5 = cr_test(&crTest3Cf2Copy, thdt, &crTest3.nc2);
 		//free(crTest3Cf2Copy.dat);
+		int L3Flag = 0;
 
 		if (crTest.sumcr > 12)
 		{
@@ -1358,6 +1362,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 				L3 = 1;
 				if (crTest2.sumcr > 12)
 				{
+					L3Flag = 2;
 					L3 = 2;
 				}
 
@@ -1412,7 +1417,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 					//L3 = 2;
 					en_r_cr(&(crTest2.r), crTest2.lB, &(crTest2.nr), crTest2.sumcr, crTest2.sumcrc, crTest2.pr, &(crTest2.z));//bin_r3B
 					en_2n_code_new(&crTest2.cf1, &crTest2.nc1, typ, thdt);//bin33
-					en_2n_code_new(&crTest2.cf1, &crTest2.nc2, typ, thdt);//bin33
+					en_2n_code_new(&crTest2.cf2, &crTest2.nc2, typ, thdt);//bin33
 				}
 				else
 				{
@@ -1430,7 +1435,7 @@ void en_sub3d_sub2_sub(Uint8_Dat* z, Uint32_Dat* r, int lB, float pr, Uint32_Dat
 				//L2 = 2;
 				en_r_cr(&(crTest3.r), crTest3.lB, &(crTest3.nr), crTest3.sumcr, crTest3.sumcrc, crTest3.pr, &(crTest3.z));//bin_r2B
 
-				if ((crTest4.sumcr > 16) && (L3 == 2))
+				if ((crTest4.sumcr > 16) && (L3Flag == 2))
 				{
 					//L3 = 3;
 					en_r_cr(&(crTest4.r), crTest4.lB, &(crTest4.nr), crTest4.sumcr, crTest4.sumcrc, crTest4.pr, &(crTest4.z));//bin_r3C

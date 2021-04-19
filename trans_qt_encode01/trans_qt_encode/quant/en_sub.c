@@ -16,7 +16,7 @@
 #define ulong unsigned long long
 #define uchar unsigned char
 
-int quant_sub0(uchar *sgn, int max, int *nc, int lenth, int idx, double delta, float *fabsA, int *qnt0)
+int quant_sub0(uchar *sgn, int max, int *nc, int lenth, int idx, double delta, double delta0, float *fabsA, int *qnt0)
 {
 	union data {
 		unsigned int a;
@@ -38,7 +38,7 @@ int quant_sub0(uchar *sgn, int max, int *nc, int lenth, int idx, double delta, f
 
 	if (max >= 6) {
 		qnt = 1;
-		if ((max < 1200) || (delta < 0.5)) {  //因为这里的delta在外面已经进行了1/delta操作，所以是<0.5，而不>5
+		if ((max < 1200) || (delta0 < 0.5)) {  //因为这里的delta在外面已经进行了1/delta操作，所以是<0.5，而不>5
 			non = 1.0 - (double)(nc[0] + nc[1] + nc[2] + nc[3] + nc[4]) / (double)lenth;// non=sum(nc(6:lennc))/sum(nc);
 			r61 = (double)nc[5] / nc[0];
 			if (max >= 30) {
@@ -87,7 +87,7 @@ int quant_sub0(uchar *sgn, int max, int *nc, int lenth, int idx, double delta, f
 				if (lenth > lenT) {
 					NT = (int)lenth / lenT;
 					for (i = 0; i < NT; i++) {
-						qtTHD = quanTHD(sgn, lenT, idx, fabsA, delta);
+						qtTHD = quanTHD(sgn, lenT, idx, fabsA, delta0);
 						if ((qtTHD.lg > 1) || ((qtTHD.lg == 1) && (fabsA[lenT + idx - 1] != 0))) {
 							flg = trim_coef(sgn, qtTHD.runs, qtTHD.lg, lenT, idx, fabsA);
 							sumflg += flg;
@@ -95,14 +95,14 @@ int quant_sub0(uchar *sgn, int max, int *nc, int lenth, int idx, double delta, f
 						idx += lenT;
 					}
 					lastlen = lenth - NT * lenT;
-					qtTHD = quanTHD(sgn, lastlen, idx, fabsA, delta);
+					qtTHD = quanTHD(sgn, lastlen, idx, fabsA, delta0);
 					if ((qtTHD.lg > 1) || ((qtTHD.lg == 1) && (fabsA[lastlen + idx - 1] != 0))) {
 						flg = trim_coef(sgn, qtTHD.runs, qtTHD.lg, lastlen, idx, fabsA);
 						sumflg += flg;
 					}
 				}
 				else {
-					qtTHD = quanTHD(sgn, lenth, idx, fabsA, delta);  //cf0=sb;
+					qtTHD = quanTHD(sgn, lenth, idx, fabsA, delta0);  //cf0=sb;
 					if ((qtTHD.lg > 1) || ((qtTHD.lg == 1) && (fabsA[lenth + idx - 1] != 0))) {
 						flg = trim_coef(sgn, qtTHD.runs, qtTHD.lg, lenth, idx, fabsA);
 						sumflg = flg;
@@ -141,7 +141,7 @@ int quant_sub0(uchar *sgn, int max, int *nc, int lenth, int idx, double delta, f
 					lenth += idx;
 					for (i = idx; i < lenth; i++)
 					{
-						fabsA[i] = (int)(fabsA[i] * delta + 0.48); //quanTHD量化
+						fabsA[i] = (int)(fabsA[i] * delta0 + 0.48); //quanTHD量化
 						if (fabsA[i] == 0)
 							sgn[i] = 0;
 					}
@@ -187,7 +187,7 @@ int quant_sub0(uchar *sgn, int max, int *nc, int lenth, int idx, double delta, f
 				lenth += idx;
 				for (i = idx; i < lenth; i++)
 				{
-					fabsA[i] = (int)(fabsA[i] * delta + 0.48); //quantTHD量化,相比较matlab,通过计算省去了offset
+					fabsA[i] = (int)(fabsA[i] * delta0 + 0.48); //quantTHD量化,相比较matlab,通过计算省去了offset
 					if (!fabsA[i])
 						sgn[i] = 0;
 				}
@@ -359,7 +359,7 @@ void en_subDC_noharr(int a, int *w, int *h, int **m, double delta)
 	/*1------------------------------------------------------------------*/
 	lg = (w[2] * h[2]) << 3;
 	max = quanEVEN_DC(a, 0, 0, lg, idx, 2, 0, m[27], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -370,7 +370,7 @@ void en_subDC_noharr(int a, int *w, int *h, int **m, double delta)
 	/*2------------------------------------------------------------------------*/
 	lg = (w[3] * h[2]) << 3;
 	max = quanEVEN_DC(a, 0, 2, lg, idx, 2, 0, m[28], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -381,7 +381,7 @@ void en_subDC_noharr(int a, int *w, int *h, int **m, double delta)
 	/*3----------------------------------------------------------------*/
 	lg = (w[2] * h[3]) << 3;
 	max = quanEVEN_DC(a, 2, 0, lg, idx, 2, 0, m[29], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -392,7 +392,7 @@ void en_subDC_noharr(int a, int *w, int *h, int **m, double delta)
 	/*4--------------------------------------------------------*/
 	lg = (w[3] * h[3]) << 3;
 	max = quanEVEN_DC(a, 2, 2, lg, idx, 2, 0, m[30], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -407,7 +407,7 @@ void en_subDC_noharr(int a, int *w, int *h, int **m, double delta)
 	/*1----------------------------------------------------------------*/
 	lg = (w[5] * h[4]) << 3;
 	max = quanEVEN_DC(a, 0, 1, lg, idx, 1, 0, m[31], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -418,20 +418,18 @@ void en_subDC_noharr(int a, int *w, int *h, int **m, double delta)
 	/*2-----------------------------------------------------------------*/
 	lg = (w[5] * h[5]) << 3;
 	max = quanEVEN_DC(a, 1, 1, lg, idx, 1, 0, m[33], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
 		sign.dat = snbin;
-		write_en_sub2_sub_data(f1.qcf[0], &sign, lg);
 		en_sub3d_sub2(f1.qcf[0], &sign, lg, maxcf0);
 	}
 #endif
-
 	/*3-------------------------------------------------------------------*/
 	lg = (w[4] * h[5]) << 3;
 	max = quanEVEN_DC(a, 1, 0, lg, idx, 1, 0, m[32], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -466,7 +464,7 @@ void en_sub7_noharr(int a, int *w, int *h, int **m, double delta)
 	lg = (w[6] * h[6]) << 3;
 	quanEVEN7(max, a, lg, idx, 0, m[37], delta0*10.0);
 	/*1-------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta0, f1.qcf[1], &qnt);
+	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
@@ -475,7 +473,7 @@ void en_sub7_noharr(int a, int *w, int *h, int **m, double delta)
 	}
 #endif
 	/*2------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta0, f1.qcf[2], &qnt);
+	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -484,17 +482,16 @@ void en_sub7_noharr(int a, int *w, int *h, int **m, double delta)
 	}
 #endif
 	/*3-----------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta0, f1.qcf[3], &qnt);
+	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
 		sign.dat = snbin;
-		write_en_sub2_sub_data(f1.qcf[3], &sign, lg);
 		en_sub3d_sub2(f1.qcf[3], &sign, lg, maxcf0);
 	}
 #endif
 	/*4-------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[4], max[3], nc[4], lg, idx, delta0, f1.qcf[4], &qnt);
+	qctr = quant_sub0(sn[4], max[3], nc[4], lg, idx, delta, delta0, f1.qcf[4], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[4], idx, lg, qctr, &maxcf0, f1.qcf[4]);
@@ -503,7 +500,7 @@ void en_sub7_noharr(int a, int *w, int *h, int **m, double delta)
 	}
 #endif
 	/*5--------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[5], max[4], nc[5], lg, idx, delta0, f1.qcf[5], &qnt);
+	qctr = quant_sub0(sn[5], max[4], nc[5], lg, idx, delta, delta0, f1.qcf[5], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[5], idx, lg, qctr, &maxcf0, f1.qcf[5]);
@@ -512,7 +509,7 @@ void en_sub7_noharr(int a, int *w, int *h, int **m, double delta)
 	}
 #endif
 	/*6------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[6], max[5], nc[6], lg, idx, delta0, f1.qcf[6], &qnt);
+	qctr = quant_sub0(sn[6], max[5], nc[6], lg, idx, delta, delta0, f1.qcf[6], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[6], idx, lg, qctr, &maxcf0, f1.qcf[6]);
@@ -521,7 +518,7 @@ void en_sub7_noharr(int a, int *w, int *h, int **m, double delta)
 	}
 #endif
 	/*7--------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[7], max[6], nc[7], lg, idx, delta0, f1.qcf[7], &qnt);
+	qctr = quant_sub0(sn[7], max[6], nc[7], lg, idx, delta, delta0, f1.qcf[7], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[7], idx, lg, qctr, &maxcf0, f1.qcf[7]);
@@ -557,7 +554,7 @@ void en_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta)
 	lg = (w[6] * h[6]) << 3;
 	quanEVEN8(max, a, b, lg, idx, 0, m[37], delta0*10.0);
 	/*1-------------------------------------------------------*/
-	qctr = quant_sub0(sn[0], max[0], nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max[0], nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -567,7 +564,7 @@ void en_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*2-----------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[1], nc[1], lg, idx, delta0, f1.qcf[1], &qnt);
+	qctr = quant_sub0(sn[1], max[1], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
@@ -575,9 +572,12 @@ void en_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta)
 		en_sub3d_sub2(f1.qcf[1], &sign, lg, maxcf0);
 	}
 #endif
+	//FILE *fp = fopen("E:\\程序代码\\量化\\2021-01-15\\test_en_sub3d_sub2_sub\\cbin.txt", "wb");
+	//fwrite(bin, sizeof(uchar), (ptr>>3)+1, fp);/*4*/
+	//fclose(fp);
 
 	/*3------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[2], nc[2], lg, idx, delta0, f1.qcf[2], &qnt);
+	qctr = quant_sub0(sn[2], max[2], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -587,7 +587,7 @@ void en_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*4---------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[3], nc[3], lg, idx, delta0, f1.qcf[3], &qnt);
+	qctr = quant_sub0(sn[3], max[3], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
@@ -597,7 +597,7 @@ void en_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*5--------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[4], max[4], nc[4], lg, idx, delta0, f1.qcf[4], &qnt);
+	qctr = quant_sub0(sn[4], max[4], nc[4], lg, idx, delta, delta0, f1.qcf[4], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[4], idx, lg, qctr, &maxcf0, f1.qcf[4]);
@@ -607,7 +607,7 @@ void en_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*6-------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[5], max[5], nc[5], lg, idx, delta0, f1.qcf[5], &qnt);
+	qctr = quant_sub0(sn[5], max[5], nc[5], lg, idx, delta, delta0, f1.qcf[5], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[5], idx, lg, qctr, &maxcf0, f1.qcf[5]);
@@ -617,7 +617,7 @@ void en_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*7----------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[6], max[6], nc[6], lg, idx, delta0, f1.qcf[6], &qnt);
+	qctr = quant_sub0(sn[6], max[6], nc[6], lg, idx, delta, delta0, f1.qcf[6], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[6], idx, lg, qctr, &maxcf0, f1.qcf[6]);
@@ -625,9 +625,8 @@ void en_sub8_noharr(int a, int b, int *w, int *h, int **m, double delta)
 		en_sub3d_sub2(f1.qcf[6], &sign, lg, maxcf0);
 	}
 #endif
-
 	/*8----------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[7], max[7], nc[7], lg, idx, delta0, f1.qcf[7], &qnt);
+	qctr = quant_sub0(sn[7], max[7], nc[7], lg, idx, delta, delta0, f1.qcf[7], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[7], idx, lg, qctr, &maxcf0, f1.qcf[7]);
@@ -660,7 +659,7 @@ void en_coef3d_dc(int a, int *w, int *h, int **m, double delta)
 	idx = 0;
 	lg = (w[2] * h[2]) << 2;	//第二次PTV
 	max = quanEVEN_DC(a + 4, 0, 0, lg, idx, 2, 1, m[20], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -673,7 +672,7 @@ void en_coef3d_dc(int a, int *w, int *h, int **m, double delta)
 	idx = 0;
 	lg = (w[3] * h[2]) << 2;
 	max = quanEVEN_DC(a + 4, 0, 2, lg, idx, 2, 1, m[21], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -686,7 +685,7 @@ void en_coef3d_dc(int a, int *w, int *h, int **m, double delta)
 	idx = 0;
 	lg = (w[2] * h[3]) << 2;
 	max = quanEVEN_DC(a + 4, 2, 0, lg, idx, 2, 1, m[22], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -699,7 +698,7 @@ void en_coef3d_dc(int a, int *w, int *h, int **m, double delta)
 	idx = 0;
 	lg = (w[3] * h[3]) << 2;
 	max = quanEVEN_DC(a + 4, 2, 2, lg, idx, 2, 1, m[23], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -712,7 +711,7 @@ void en_coef3d_dc(int a, int *w, int *h, int **m, double delta)
 	idx = 0;
 	lg = (w[5] * h[4]) << 2;	//第一次PTV
 	max = quanEVEN_DC(a + 4, 0, 1, lg, idx, 1, 1, m[24], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -725,7 +724,7 @@ void en_coef3d_dc(int a, int *w, int *h, int **m, double delta)
 	idx = 0;
 	lg = (w[5] * h[5]) << 2;
 	max = quanEVEN_DC(a + 4, 1, 1, lg, idx, 1, 1, m[26], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -737,12 +736,11 @@ void en_coef3d_dc(int a, int *w, int *h, int **m, double delta)
 	idx = 0;
 	lg = (w[4] * h[5]) << 2;
 	max = quanEVEN_DC(a + 4, 1, 0, lg, idx, 1, 1, m[25], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
 		sign.dat = snbin;
-		//write_en_sub2_sub_data(f1.qcf[0], &sign, lg);
 		en_sub3d_sub2(f1.qcf[0], &sign, lg, maxcf0);
 	}
 #endif
@@ -774,7 +772,7 @@ void en_coed3d_7(int a, int *w, int *h, int **m, double delta)
 	lg = (w[6] * h[6]) << 2;
 	quanEVEN7(max, a + 4, lg, idx, 1, m[36], delta0 * 10);
 	/*1-------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta0, f1.qcf[1], &qnt);
+	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
@@ -784,7 +782,7 @@ void en_coed3d_7(int a, int *w, int *h, int **m, double delta)
 #endif
 
 	/*2---------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta0, f1.qcf[2], &qnt);
+	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -794,7 +792,7 @@ void en_coed3d_7(int a, int *w, int *h, int **m, double delta)
 #endif
 
 	/*3----------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta0, f1.qcf[3], &qnt);
+	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
@@ -804,7 +802,7 @@ void en_coed3d_7(int a, int *w, int *h, int **m, double delta)
 #endif
 
 	/*4--------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[4], max[3], nc[4], lg, idx, delta0, f1.qcf[4], &qnt);
+	qctr = quant_sub0(sn[4], max[3], nc[4], lg, idx, delta, delta0, f1.qcf[4], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[4], idx, lg, qctr, &maxcf0, f1.qcf[4]);
@@ -814,7 +812,7 @@ void en_coed3d_7(int a, int *w, int *h, int **m, double delta)
 #endif
 
 	/*5----------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[5], max[4], nc[5], lg, idx, delta0, f1.qcf[5], &qnt);
+	qctr = quant_sub0(sn[5], max[4], nc[5], lg, idx, delta, delta0, f1.qcf[5], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[5], idx, lg, qctr, &maxcf0, f1.qcf[5]);
@@ -824,7 +822,7 @@ void en_coed3d_7(int a, int *w, int *h, int **m, double delta)
 #endif
 
 	/*6-------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[6], max[5], nc[6], lg, idx, delta0, f1.qcf[6], &qnt);
+	qctr = quant_sub0(sn[6], max[5], nc[6], lg, idx, delta, delta0, f1.qcf[6], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[6], idx, lg, qctr, &maxcf0, f1.qcf[6]);
@@ -834,7 +832,7 @@ void en_coed3d_7(int a, int *w, int *h, int **m, double delta)
 #endif
 
 	/*7-------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[7], max[6], nc[7], lg, idx, delta0, f1.qcf[7], &qnt);
+	qctr = quant_sub0(sn[7], max[6], nc[7], lg, idx, delta, delta0, f1.qcf[7], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[7], idx, lg, qctr, &maxcf0, f1.qcf[7]);
@@ -871,18 +869,17 @@ void en_coed3d_8(int a, int b, int *w, int *h, int **m, double delta)
 	/*第一次harr变换后的高频部分*/
 	quanEVEN8(max, a + 4, b, lg, idx, 1, m[36], delta0*10.0);
 	/*1----------------------------------------------------------------*/
-	qctr = quant_sub0(sn[0], max[0], nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max[0], nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
 		sign.dat = snbin;
-		//write_en_sub2_sub_data(f1.qcf[0], &sign, lg);
 		en_sub3d_sub2(f1.qcf[0], &sign, lg, maxcf0);
 	}
 #endif
 
 	/*2--------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[1], nc[1], lg, idx, delta0, f1.qcf[1], &qnt);
+	qctr = quant_sub0(sn[1], max[1], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
@@ -892,7 +889,7 @@ void en_coed3d_8(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*3--------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[2], nc[2], lg, idx, delta0, f1.qcf[2], &qnt);
+	qctr = quant_sub0(sn[2], max[2], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -902,7 +899,7 @@ void en_coed3d_8(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*4------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[3], nc[3], lg, idx, delta0, f1.qcf[3], &qnt);
+	qctr = quant_sub0(sn[3], max[3], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
@@ -912,7 +909,7 @@ void en_coed3d_8(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*5-------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[4], max[4], nc[4], lg, idx, delta0, f1.qcf[4], &qnt);
+	qctr = quant_sub0(sn[4], max[4], nc[4], lg, idx, delta, delta0, f1.qcf[4], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[4], idx, lg, qctr, &maxcf0, f1.qcf[4]);
@@ -922,7 +919,7 @@ void en_coed3d_8(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*6-----------------------------------------------------------------*/
-	qctr = quant_sub0(sn[5], max[5], nc[5], lg, idx, delta0, f1.qcf[5], &qnt);
+	qctr = quant_sub0(sn[5], max[5], nc[5], lg, idx, delta, delta0, f1.qcf[5], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[5], idx, lg, qctr, &maxcf0, f1.qcf[5]);
@@ -932,7 +929,7 @@ void en_coed3d_8(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*7-----------------------------------------------------------------*/
-	qctr = quant_sub0(sn[6], max[6], nc[6], lg, idx, delta0, f1.qcf[6], &qnt);
+	qctr = quant_sub0(sn[6], max[6], nc[6], lg, idx, delta, delta0, f1.qcf[6], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[6], idx, lg, qctr, &maxcf0, f1.qcf[6]);
@@ -942,7 +939,7 @@ void en_coed3d_8(int a, int b, int *w, int *h, int **m, double delta)
 #endif
 
 	/*8------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[7], max[7], nc[7], lg, idx, delta0, f1.qcf[7], &qnt);
+	qctr = quant_sub0(sn[7], max[7], nc[7], lg, idx, delta, delta0, f1.qcf[7], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[7], idx, lg, qctr, &maxcf0, f1.qcf[7]);
@@ -974,7 +971,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//1-------------------------------------------------------------------
 	lg = (w[0] * h[0]) << 1;//第三次PTV
 	max = quanEVEN_DC(a + 8, 0, 0, lg, idx, 3, 2, m[10], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -986,7 +983,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//2-------------------------------------------------------------------
 	lg = (w[1] * h[0]) << 1;
 	max = quanEVEN_DC(a + 8, 0, 4, lg, idx, 3, 2, m[11], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -998,7 +995,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//3-------------------------------------------------------------------
 	lg = (w[1] * h[1]) << 1;
 	max = quanEVEN_DC(a + 8, 4, 4, lg, idx, 3, 2, m[13], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1009,7 +1006,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//4-------------------------------------------------------------------
 	lg = (w[0] * h[1]) << 1;
 	max = quanEVEN_DC(a + 8, 4, 0, lg, idx, 3, 2, m[12], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1021,7 +1018,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//5-------------------------------------------------------------------
 	lg = (w[3] * h[2]) << 1;//第二次PTV
 	max = quanEVEN_DC(a + 8, 0, 2, lg, idx, 2, 2, m[14], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1033,7 +1030,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//6-------------------------------------------------------------------
 	lg = (w[3] * h[3]) << 1;
 	max = quanEVEN_DC(a + 8, 2, 2, lg, idx, 2, 2, m[16], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1044,7 +1041,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//7-------------------------------------------------------------------
 	lg = (w[2] * h[3]) << 1;
 	max = quanEVEN_DC(a + 8, 2, 0, lg, idx, 2, 2, m[15], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1056,7 +1053,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//8-------------------------------------------------------------------
 	lg = (w[5] * h[4]) << 1;//第一次PTV
 	max = quanEVEN_DC(a + 8, 0, 1, lg, idx, 1, 2, m[17], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1068,7 +1065,7 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//9-------------------------------------------------------------------
 	lg = (w[5] * h[5]) << 1;
 	max = quanEVEN_DC(a + 8, 1, 1, lg, idx, 1, 2, m[19], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1080,12 +1077,11 @@ void en_coef3dB_dc(int a, int *w, int *h, int **m, double delta)
 	//10-------------------------------------------------------------------
 	lg = (w[4] * h[5]) << 1;
 	max = quanEVEN_DC(a + 8, 1, 0, lg, idx, 1, 2, m[18], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
 		sign.dat = snbin;
-		//write_en_sub2_sub_data(f1.qcf[0], &sign, lg);
 		en_sub3d_sub2(f1.qcf[0], &sign, lg, maxcf0);
 	}
 #endif
@@ -1116,7 +1112,7 @@ void en_coef3dB_L3(int H, int W, int a, int b, int c, int *w, int *h, int **m, d
 	lg = (w[6] * h[6]) << 1;
 	quant3(max, H, W, a + 8, b, c, lg, 2, 0, m[35], 0, delta0 * 10);
 	/*1-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta0, f1.qcf[1], &qnt); max[0] = 0;
+	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt); max[0] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
@@ -1126,7 +1122,7 @@ void en_coef3dB_L3(int H, int W, int a, int b, int c, int *w, int *h, int **m, d
 #endif
 
 	/*2-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta0, f1.qcf[2], &qnt); max[1] = 0;
+	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt); max[1] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -1136,7 +1132,7 @@ void en_coef3dB_L3(int H, int W, int a, int b, int c, int *w, int *h, int **m, d
 #endif
 
 	/*3----------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta0, f1.qcf[3], &qnt); max[2] = 0;
+	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt); max[2] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
@@ -1171,18 +1167,17 @@ void en_coef3dB_L2_3(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	lg = (2 * w[6] * 2 * h[6]) << 1;
 	quant_L2_3(max, H, W, a + 8, b, c, lg, 2, m[38], delta0 * 10);
 	/*1-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta0, f1.qcf[1], &qnt); max[0] = 0;
+	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt); max[0] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
 		sign.dat = snbin;
-		write_en_sub2_sub_data(f1.qcf[1], &sign, lg);
 		en_sub3d_sub2(f1.qcf[1], &sign, lg, maxcf0);
 	}
 #endif
 
 	/*2-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta0, f1.qcf[2], &qnt); max[1] = 0;
+	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt); max[1] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -1192,12 +1187,11 @@ void en_coef3dB_L2_3(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 #endif
 
 	/*3----------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta0, f1.qcf[3], &qnt); max[2] = 0;
+	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt); max[2] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
 		sign.dat = snbin;
-		write_en_sub2_sub_data(f1.qcf[3], &sign, lg);
 		en_sub3d_sub2(f1.qcf[3], &sign, lg, maxcf0);
 	}
 #endif
@@ -1229,7 +1223,7 @@ void en_coef3dB_L2_4(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	quant_L2_4(max, H, W, a + 8, b, c, lg, 2, m[38], delta0 * 10);
 
 	/*1-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta0, f1.qcf[1], &qnt); max[0] = 0;
+	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt); max[0] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
@@ -1238,7 +1232,7 @@ void en_coef3dB_L2_4(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 #endif
 	/*2-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta0, f1.qcf[2], &qnt); max[1] = 0;
+	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt); max[1] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -1247,7 +1241,7 @@ void en_coef3dB_L2_4(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 	}
 #endif
 	/*3----------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta0, f1.qcf[3], &qnt); max[2] = 0;
+	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt); max[2] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
@@ -1257,7 +1251,7 @@ void en_coef3dB_L2_4(int H, int W, int a, int b, int c, int *w, int *h, int **m,
 #endif
 
 	/*4----------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[4], max[3], nc[4], lg, idx, delta0, f1.qcf[4], &qnt); max[3] = 0;
+	qctr = quant_sub0(sn[4], max[3], nc[4], lg, idx, delta, delta0, f1.qcf[4], &qnt); max[3] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[4], idx, lg, qctr, &maxcf0, f1.qcf[4]);
@@ -1288,7 +1282,7 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 		/*第三次harr变换后的高频部分*/
 		lg = w[0] * h[0];//第三次PTV
 		max = quanEVEN_DC(a, 0, 0, lg, idx, 3, 3, m[0], delta0*10.0);
-		qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+		qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 		if (qnt) {
 			sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1304,7 +1298,7 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 	//2-------------------------------------------------------------------
 	lg = w[1] * h[0];
 	max = quanEVEN_DC(a, 0, 4, lg, idx, 3, 3, m[1], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1315,7 +1309,7 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 	//3-------------------------------------------------------------------
 	lg = w[1] * h[1];
 	max = quanEVEN_DC(a, 4, 4, lg, idx, 3, 3, m[3], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1326,7 +1320,7 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 	//4---------------------------------------------------------------------
 	lg = w[0] * h[1];
 	max = quanEVEN_DC(a, 4, 0, lg, idx, 3, 3, m[2], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1337,7 +1331,7 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 	//5--------------------------------------------------------------------
 	lg = w[3] * h[2];//第二次PTV
 	max = quanEVEN_DC(a, 0, 2, lg, idx, 2, 3, m[4], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1348,7 +1342,7 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 	//6-------------------------------------------------------------------
 	lg = w[3] * h[3];
 	max = quanEVEN_DC(a, 2, 2, lg, idx, 2, 3, m[6], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1359,7 +1353,7 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 	//7-------------------------------------------------------------------
 	lg = w[2] * h[3];
 	max = quanEVEN_DC(a, 2, 0, lg, idx, 2, 3, m[5], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1370,7 +1364,7 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 	//8-------------------------------------------------------------------
 	lg = w[5] * h[4];//第一次PTV
 	max = quanEVEN_DC(a, 0, 1, lg, idx, 1, 3, m[7], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
@@ -1381,28 +1375,33 @@ void en_coef3d_dc5B_dc(int a, int *w, int *h, int **m, double delta, int AC)
 	//9-------------------------------------------------------------------
 	lg = w[5] * h[5];
 	max = quanEVEN_DC(a, 1, 1, lg, idx, 1, 3, m[9], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
 		sign.dat = snbin;
-		write_en_sub2_sub_data(f1.qcf[0], &sign, lg);
 		en_sub3d_sub2(f1.qcf[0], &sign, lg, maxcf0);
 	}
 #endif
 	//10-------------------------------------------------------------------
 	lg = w[4] * h[5];
 	max = quanEVEN_DC(a, 1, 0, lg, idx, 1, 3, m[8], delta0*10.0);
-	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta0, f1.qcf[0], &qnt);
+	qctr = quant_sub0(sn[0], max, nc[0], lg, idx, delta, delta0, f1.qcf[0], &qnt);
+
+	//FILE *fp = fopen("E:\\程序代码\\量化\\2021-01-15\\test_en_sub3d_sub2_sub\\cqcf.txt", "wb");
+	//fwrite(f1.qcf[0], sizeof(float), lg, fp);/*4*/
+	//fclose(fp);
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[0], idx, lg, qctr, &maxcf0, f1.qcf[0]);
 		sign.dat = snbin;
-		//write_en_sub2_sub_data(f1.qcf[0], &sign, lg);
 		en_sub3d_sub2(f1.qcf[0], &sign, lg, maxcf0);
+
+		//FILE *fp = fopen("E:\\程序代码\\量化\\2021-01-15\\test_en_sub3d_sub2_sub\\cbin.txt", "wb");
+		//fwrite(bin, sizeof(uchar), (ptr>>3)+1, fp);/*4*/
+		//fclose(fp);
 	}
 #endif
-
 	return;
 }
 
@@ -1429,7 +1428,7 @@ void en_coef3d_dc5B_L3(int H, int W, int a, int b, int c, int *w, int *h, int **
 	lg = (w[6] * h[6]);
 	quant3(max, H, W, a, b, c, lg, 3, 0, m[34], 0, delta0 * 10);
 	/*1-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta0, f1.qcf[1], &qnt); max[0] = 0;
+	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt); max[0] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
@@ -1439,7 +1438,7 @@ void en_coef3d_dc5B_L3(int H, int W, int a, int b, int c, int *w, int *h, int **
 #endif
 
 	/*2-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta0, f1.qcf[2], &qnt); max[1] = 0;
+	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt); max[1] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -1449,7 +1448,7 @@ void en_coef3d_dc5B_L3(int H, int W, int a, int b, int c, int *w, int *h, int **
 #endif
 
 	/*3----------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta0, f1.qcf[3], &qnt); max[2] = 0;
+	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt); max[2] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
@@ -1484,7 +1483,7 @@ void en_coef3d_dc5B_L2(int H, int W, int a, int b, int c, int *w, int *h, int **
 	lg = (2 * w[6] * 2 * h[6]);
 	quant3(max, H, W, a, b, c, lg, 3, 1, m[39], 1, delta0 * 10);
 	/*1-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta0, f1.qcf[1], &qnt); max[0] = 0;
+	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt); max[0] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
@@ -1494,7 +1493,7 @@ void en_coef3d_dc5B_L2(int H, int W, int a, int b, int c, int *w, int *h, int **
 #endif
 
 	/*2-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta0, f1.qcf[2], &qnt); max[1] = 0;
+	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt); max[1] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -1504,7 +1503,7 @@ void en_coef3d_dc5B_L2(int H, int W, int a, int b, int c, int *w, int *h, int **
 #endif
 
 	/*3----------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta0, f1.qcf[3], &qnt); max[2] = 0;
+	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt); max[2] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
@@ -1540,18 +1539,17 @@ void en_coef3d_dc5B_L1(int H, int W, int a, int b, int c, int *w, int *h, int **
 	lg = (4 * w[6] * 4 * h[6]);
 	quant3(max, H, W, a, b, c, lg, 3, 2, m[40], 1, delta0 * 10);
 	/*1-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta0, f1.qcf[1], &qnt); max[0] = 0;
+	qctr = quant_sub0(sn[1], max[0], nc[1], lg, idx, delta, delta0, f1.qcf[1], &qnt); max[0] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
 		sign.dat = snbin;
-		write_en_sub2_sub_data(f1.qcf[1], &sign, lg);
 		en_sub3d_sub2(f1.qcf[1], &sign, lg, maxcf0);
 	}
 #endif
 
 	/*2-------------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta0, f1.qcf[2], &qnt); max[1] = 0;
+	qctr = quant_sub0(sn[2], max[1], nc[2], lg, idx, delta, delta0, f1.qcf[2], &qnt); max[1] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[2], idx, lg, qctr, &maxcf0, f1.qcf[2]);
@@ -1561,7 +1559,7 @@ void en_coef3d_dc5B_L1(int H, int W, int a, int b, int c, int *w, int *h, int **
 #endif
 
 	/*3----------------------------------------------------------------------------*/
-	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta0, f1.qcf[3], &qnt); max[2] = 0;
+	qctr = quant_sub0(sn[3], max[2], nc[3], lg, idx, delta, delta0, f1.qcf[3], &qnt); max[2] = 0;
 #if ENCODE
 	if (qnt) {
 		sign.len = handleSn(sn[3], idx, lg, qctr, &maxcf0, f1.qcf[3]);
@@ -1719,7 +1717,6 @@ int handleSn(uchar *sgn, int idx, int lg, int qctr, int *maxcf, float *fabsA)
 			if (fabsA[i] > max)
 				max = fabsA[i];
 			if (!sgn[i]) {
-				//temp <<= 1;
 				cnt--;
 			}
 			else {
