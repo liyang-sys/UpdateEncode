@@ -1544,6 +1544,7 @@ void en_coef3d_dc5B_L1(int H, int W, int a, int b, int c, int *w, int *h, int **
 	if (qnt) {
 		sign.len = handleSn(sn[1], idx, lg, qctr, &maxcf0, f1.qcf[1]);
 		sign.dat = snbin;
+		//write_en_sub2_sub_data(f1.qcf[1], &sign, lg);
 		en_sub3d_sub2(f1.qcf[1], &sign, lg, maxcf0);
 	}
 #endif

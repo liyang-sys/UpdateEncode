@@ -2,6 +2,7 @@
 #include "all.h"
 #include "parameter_setting.h"
 #include"encoding.h"
+#include<math.h>
 
 #define uint unsigned int
 #define uchar unsigned char
@@ -12,12 +13,17 @@ void en_Kside_new(int *rk, int l_rk, int *nk, int l_nk, int thd)
 {
 	extern int ptr;
 	extern uchar *bin;
+	union data
+	{
+		unsigned short int a;
+		uchar b[4];
+	} rem;
 	int i, t0, t1, t;
 	GOL g;
 	ESSC e_cbook;
 	SEP Separate0;
 	int sumr = 0;
-	float pk;
+	double pk;
 	int lens;                //中间值
 	uchar codebook = 0;
 	uchar *rA, *rB;    //把rk和rw转换为char的中间值
@@ -34,7 +40,7 @@ void en_Kside_new(int *rk, int l_rk, int *nk, int l_nk, int thd)
 			sumr += rk[i];
 		}
 		/* pk=sum(rk-1)/length(rk); */
-		pk = (float)(sumr) / l_rk;
+		pk = (double)(sumr) / l_rk;
 
 		if (pk > 0.242141716744801) {
 			ptr++;   //把0移到bin
@@ -52,8 +58,31 @@ void en_Kside_new(int *rk, int l_rk, int *nk, int l_nk, int thd)
 
 			/* codebook=uint8(abs( dec2bin(codebook-1,3) ) -48); */
 			/* biny=[biny codebook]; */
+			//e_cbook.codebook--;
+			//int bits = ceill(((double)(e_cbook.codebook) / (2.0)));
+			//if (bits > 3)
+			//{
+			//	rem.a = e_cbook.codebook;
+			//	rem.a = rem.a << (16 - bits - (ptr & 7));
+			//	bin[ptr >> 3] |= rem.b[1];
+			//	bin[(ptr >> 3) + 1] |= rem.b[0];
+			//	ptr += bits;
+			//}
+			//else
+			//{
+			//	for (i = 2; i >= 0; i--) {
+			//		t0 = (e_cbook.codebook >> i) & 1;  //codebook的值直接赋给bin
+			//		t1 = ptr & 7;
+			//		bin[ptr >> 3] |= (t0 << (7 - t1));
+			//		ptr++;
+			//	};
+			//}
+			if (e_cbook.codebook > 4)
+			{
+				e_cbook.codebook = 4, e_cbook.k = 3, e_cbook.m = 8, e_cbook.cls = 0;
+			}
 			e_cbook.codebook--;
-			for (i = 2; i >= 0; i--) {
+			for (i = 1; i >= 0; i--) {
 				t0 = (e_cbook.codebook >> i) & 1;  //codebook的值直接赋给bin
 				t1 = ptr & 7;
 				bin[ptr >> 3] |= (t0 << (7 - t1));
