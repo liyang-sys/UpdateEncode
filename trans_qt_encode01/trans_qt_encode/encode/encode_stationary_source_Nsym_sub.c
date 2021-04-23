@@ -92,6 +92,10 @@ void encode_stationary_source_Nsym_sub(uint *r, int lenr, float pw, int Nsym, in
 	}
 	else
 	{
+		if (codebook > 15)
+		{
+			printf("encode_stationary_source_Nsym ÖÐSFcodeb codebook ´óÓÚ15");
+		}
 		sfcode = SFcode(codebook + 1, flg);
 		//printf("sfcode.lb = %d\n", sfcode.lb);
 		for (i = sfcode.lb - 1; i >= 0; i--)

@@ -55,7 +55,7 @@ DEC de_Kside_new(uchar *bin, int lenr, int thd, int lenby)
 			//t = ptr & 7;
 			//codebook = ((bin[ptr >> 3] >> (7 - t)) & 1) + tcb + 1;
 			//ptr++;
-			codebook = codebook + 1;
+			codebook = tcb + 1;
 			t = ptr & 7;
 			lastBit = (bin[ptr >> 3] >> (7 - t)) & 1;
 			ptr++;

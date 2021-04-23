@@ -5475,7 +5475,7 @@ float*** forward_transform(int N, int M, int depth) //N是宽 M是高
 	if (depth == 8) {
 		//ImgData8 = readYUV8("BirdsInCage_1920x1080_60_8bit_422.yuv", M, N, 1, 96, 422);
 		//ImgData8 = readYUV8("OldTownCross_1920x1080_50_8bit_422.yuv", M, N, 1, 96, 422);
-		ImgData8 = readYUV8("D:\\量化\\1080视频数据\\Cactus_1920x1080_50.yuv", M, N, 1, 96, 422);
+		ImgData8 = readYUV8("Cactus_1920x1080_50.yuv", M, N, 1, 96, 422);
 		if (ImgData8) {
 			for (i = 0; i < 96; i++)
 			{
