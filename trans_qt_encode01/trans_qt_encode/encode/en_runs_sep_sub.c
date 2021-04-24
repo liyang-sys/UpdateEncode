@@ -36,7 +36,9 @@ int en_runs_sep_sub (int thd, uint *rk, uint *nk, uint *rw, int lenrk, int lenrw
             {
                 //printf("en_runs_sep_sub 2:\n");///
                 ptr++;
-                encode_stationary_source_Nsym (rk, lenrk, pk, thd, 1, 16);
+                //encode_stationary_source_Nsym (rk, lenrk, pk, thd, 1, 16);
+				//encode_stationary_source_Nsym(rk, lenrk, pk, thd, 1, 6);
+				encode_stationary_source_Nsym(rk, lenrk, pk, thd, 1, 8);
             }
             else
             {

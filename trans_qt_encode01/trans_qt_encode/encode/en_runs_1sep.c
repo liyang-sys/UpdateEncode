@@ -72,25 +72,54 @@ void en_runs_1sep(Uint32_Dat* r, float p, unsigned char cbook, int lenz, SEP* se
 		  */
 		  /* biny = [biny  codebook bin]; */
 		if (gol.p < 1 && gol.p != 0) {
+			//ESSC essc1;
+			//essc1 = encode_stationary_source_cbook(gol.p);
+			////printf("codebook = %d\n", essc1.codebook);
+
+
+			///* codebook */
+			//sfc1 = SFcode(essc1.codebook + 1, 5);
+			//x = ptr & 7;
+			//rem.a = sfc1.code;
+			//rem.a = rem.a << (16 - x - sfc1.lb);
+			//bin[ptr >> 3] |= rem.b[1];
+			//bin[(ptr >> 3) + 1] |= rem.b[0];
+			//ptr += sfc1.lb; x += sfc1.lb; x &= 7;
+			///* bin */
+			//encode_stationary_source_bin(gol.r, gol.lenr, essc1.codebook, essc1.k, essc1.m, essc1.m1, essc1.m2, essc1.cls);
+
+
 			ESSC essc1;
 			essc1 = encode_stationary_source_cbook(gol.p);
-			//printf("codebook = %d\n", essc1.codebook);
-
-
 			/* codebook */
-			sfc1 = SFcode(essc1.codebook + 1, 5);
-			x = ptr & 7;
-			rem.a = sfc1.code;
-			rem.a = rem.a << (16 - x - sfc1.lb);
-			bin[ptr >> 3] |= rem.b[1];
-			bin[(ptr >> 3) + 1] |= rem.b[0];
-			ptr += sfc1.lb; x += sfc1.lb; x &= 7;
-			/* bin */
-			encode_stationary_source_bin(gol.r, gol.lenr, essc1.codebook, essc1.k, essc1.m, essc1.m1, essc1.m2, essc1.cls);
-
+			if (essc1.codebook > 4) {
+				x = ptr & 7;
+				sfc1 = SFcode(5, 5);
+				rem.a = sfc1.code;
+				rem.a = rem.a << (16 - x - sfc1.lb);
+				bin[ptr >> 3] |= rem.b[1];
+				bin[(ptr >> 3) + 1] |= rem.b[0];
+				ptr += sfc1.lb; x += sfc1.lb; x &= 7;
+				encode_stationary_source_bin(gol.r, gol.lenr, 4, 0, 0, 0, 0, 0);
+			}
+			else {
+				x = ptr & 7;
+				sfc1 = SFcode(essc1.codebook + 1, 5);
+				rem.a = sfc1.code;
+				rem.a = rem.a << (16 - x - sfc1.lb);
+				bin[ptr >> 3] |= rem.b[1];
+				bin[(ptr >> 3) + 1] |= rem.b[0];
+				ptr += sfc1.lb; x += sfc1.lb; x &= 7;
+				/* bin */
+				encode_stationary_source_bin(gol.r, gol.lenr, essc1.codebook, essc1.k, essc1.m, essc1.m1, essc1.m2, essc1.cls);;
+			}
 		}
 		else {
 			/* codebook */
+			if (gol.p > 4)
+			{
+				gol.p = 4;
+			}
 			sfc1 = SFcode((int)gol.p + 1, 5);
 			x = ptr & 7;
 			rem.a = sfc1.code;

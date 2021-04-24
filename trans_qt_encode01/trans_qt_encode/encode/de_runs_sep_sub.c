@@ -38,7 +38,9 @@ DRSS de_runs_sep_sub (uchar *biny, int thd, int lenrk, int lenrw, int lenbinbit)
             if (flg < 0.5)
             {
                 //printf("de_runs_sep_sub 2:\n");
-                des1 = deSFcode (biny, 16);
+                //des1 = deSFcode (biny, 16);
+				//des1 = deSFcode(biny, 6);
+				des1 = deSFcode(biny, 8);
                 des1.sym--; ///des1.sym = codebok
                 dssnl1  = decode_stationary_source_Nsym_lenr (biny, des1.sym, lenrk, thd, lenbinbit);
                 drss1.rk = dssnl1.r;

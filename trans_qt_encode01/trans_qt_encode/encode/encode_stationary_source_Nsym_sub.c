@@ -92,9 +92,19 @@ void encode_stationary_source_Nsym_sub(uint *r, int lenr, float pw, int Nsym, in
 	}
 	else
 	{
-		if (codebook > 15)
+		if (codebook > (flg - 1))
 		{
-			printf("encode_stationary_source_Nsym 中SFcodeb codebook 大于15");
+			//printf("encode_stationary_source_Nsym 中SFcodeb codebook 溢出");
+			
+			codebook = flg - 1;
+			if ((codebook % 2) == 0)
+			{
+				k = (codebook >> 1) + 1; m = 1 << k; cls = 0;
+			}
+			else
+			{
+				k = codebook >> 1; m1 = 1 << k; m2 = m1 << 1; m = m1 + m2; cls = 1;
+			}
 		}
 		sfcode = SFcode(codebook + 1, flg);
 		//printf("sfcode.lb = %d\n", sfcode.lb);

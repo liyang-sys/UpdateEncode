@@ -1,12 +1,8 @@
-﻿  encode_stationary_source_Nsym_sub.c
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(119): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(125): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(133): warning C4018: “>”: 有符号/无符号不匹配
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(251): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(260): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(266): warning C4018: “>”: 有符号/无符号不匹配
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(272): warning C4018: “<=”: 有符号/无符号不匹配
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(275): warning C4018: “<=”: 有符号/无符号不匹配
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(24): warning C4101: “t”: 未引用的局部变量
-c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\encode_stationary_source_nsym_sub.c(20): warning C4101: “n”: 未引用的局部变量
+﻿  de_runs_sep_sub.c
+  en_runs_sep_sub.c
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\en_runs_sep_sub.c(41): warning C4244: “函数”: 从“double”转换到“float”，可能丢失数据
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\en_runs_sep_sub.c(12): warning C4101: “rem”: 未引用的局部变量
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\en_runs_sep_sub.c(18): warning C4101: “sfc1”: 未引用的局部变量
+  正在生成代码...
+c:\users\liyang\desktop\bishe\updateencode\trans_qt_encode01\trans_qt_encode\encode\en_runs_sep_sub.c(59): warning C4716: “en_runs_sep_sub”: 必须返回一个值
   trans_qt_encode.vcxproj -> C:\Users\liyang\Desktop\BiShe\UpdateEncode\trans_qt_encode01\x64\Debug\trans_qt_encode.exe
