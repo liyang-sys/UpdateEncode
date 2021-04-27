@@ -349,7 +349,7 @@ void en_zone_sub_new(Uint32_Dat* r, float kcr, SEP **sep)
 #endif
 				//printf("(6.1)ptr = %d\n", ptr);
 				/* [bin,codebook]=encode_stationary_source_Nsym(rk,prob,thd); biny = [biny bin] */
-				encode_stationary_source_Nsym(rk_temp.dat, rk_temp.len, prob, thd, 1, 20);
+				encode_stationary_source_Nsym(rk_temp.dat, rk_temp.len, prob, thd, 1, 17);
 				//printf("(6.2)ptr = %d\n", ptr);
 			}
 		}

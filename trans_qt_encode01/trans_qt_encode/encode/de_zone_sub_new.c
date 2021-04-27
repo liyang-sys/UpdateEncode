@@ -174,7 +174,8 @@ void de_zone_sub_new(uchar *_bin, int lenbinbit, Uint32_Dat *rrw, Uint32_Dat *rk
 				dec.lenr = 0;
 			}
 			else {
-				des = deSFcode(_bin, 20);
+				//des = deSFcode(_bin, 20);
+				des = deSFcode(_bin, 17);
 				codebook = des.sym;
 				codebook += -1;
 				dec = decode_stationary_source_Nsym_lenr(_bin, codebook, lenk[nsp - 1], thd[nsp], lenbinbit);

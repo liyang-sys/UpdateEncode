@@ -49,7 +49,8 @@ DEC de_zone_sub2(uchar *biny, int lastBit,int lenbinbit)
 	}
 	else
 	{
-		DES des = deSFcode(bin, 24);
+		//DES des = deSFcode(bin, 24);
+		DES des = deSFcode(bin, 17);
 		rk2 = decode_stationary_source_Nsym_lenr(bin, des.sym - 1, lenk2, thd2, lenbinbit);
 	}
 

@@ -154,7 +154,8 @@ void en_zone_sub2(Uint32_Dat*r)//biny得在调用此函数之前编入bin中去
 		bin[ptr >> 3] |= rem.b[1];
 		bin[(ptr >> 3) + 1] |= rem.b[0];
 		ptr++; binBytePos++;
-		encode_stationary_source_Nsym(rk.dat, rk.len, prob, thd1, 1, 24);
+		//encode_stationary_source_Nsym(rk.dat, rk.len, prob, thd1, 1, 24);
+		encode_stationary_source_Nsym(rk.dat, rk.len, prob, thd1, 1, 17);
 	}
 	if (thd0 > 1)
 	{

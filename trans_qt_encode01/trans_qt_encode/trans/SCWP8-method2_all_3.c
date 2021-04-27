@@ -5504,6 +5504,7 @@ float*** forward_transform(int N, int M, int depth) //N是宽 M是高
 	}
 	else if (depth == 10) {
 		ImgData10 = readYUV10("Kimono1_1920x1080_24_10bit_422.yuv", M, N, 1, 96, 422);
+		//ImgData10 = readYUV10("E:\\4K视频\\Beauty_3840x2160_120fps_420_10bit_YUV.yuv", M, N, 1, 96, 420);
 		//ImgData10 = readYUV10("D:\\量化\\1080视频数据\\ParkScene_1920x1080_24_10bit_422.yuv", M, N, 1, 96, 422);
 		if (ImgData10) {
 			for (i = 0; i < 96; i++)
